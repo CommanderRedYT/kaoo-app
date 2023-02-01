@@ -3,6 +3,7 @@ import type {Good} from "../../models/kaoo";
 import {Overlay} from "react-native-elements";
 import {useState} from "react";
 import FastImage from "react-native-fast-image";
+import BigGood from "./BigGood";
 
 export default function Good({ good }: { good: Good }) {
     const theme = useTheme();
@@ -30,8 +31,7 @@ export default function Good({ good }: { good: Good }) {
                 onPress={openOverlay}
             />
             <Overlay isVisible={visible} onBackdropPress={closeOverlay} overlayStyle={{ backgroundColor: theme.colors.background, borderRadius: 10 }}>
-                <FastImage style={{ width: 200, height: 200 }} source={{ uri: good.img }} />
-                <Text style={{ fontSize: 20, color: theme.colors.onBackground }}>{good.name}</Text>
+                <BigGood good={good} />
             </Overlay>
         </>
     );
