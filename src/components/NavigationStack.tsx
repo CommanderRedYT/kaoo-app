@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MainScreen from "../screens/MainScreen";
+import MenuScreen from "../screens/MenuScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,7 @@ export default function NavigationStack() {
             }}
         >
             <Stack.Screen name="MainScreen" component={MainScreen} />
+            <Stack.Screen name="MenuScreen" component={MenuScreen} />
         </Stack.Navigator>
     );
 }

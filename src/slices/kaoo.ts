@@ -5,22 +5,30 @@ import type { AppThunk } from "../store";
 import type { KaooState } from "../models/kaoo";
 
 const initialState: KaooState = {
-    test: "test",
+    goods: null,
+    search: null,
 };
 
 const kaooSlice = createSlice({
     name: "kaoo",
     initialState,
     reducers: {
-        setTest: (state, action: PayloadAction<string>) => {
-            state.test = action.payload;
-        }
+        setGoods: (state, action: PayloadAction<KaooState["goods"]>) => {
+            state.goods = action.payload;
+        },
+        setSearch: (state, action: PayloadAction<KaooState["search"]>) => {
+            state.search = action.payload;
+        },
     }
 });
 
-export const updateTest = (test: string): AppThunk => async (dispatch) => {
-    dispatch(kaooSlice.actions.setTest(test));
-}
+export const updateGoods = (goods: KaooState["goods"]): AppThunk => async (dispatch) => {
+    dispatch(kaooSlice.actions.setGoods(goods));
+};
+
+export const updateSearch = (search: KaooState["search"]): AppThunk => async (dispatch) => {
+    dispatch(kaooSlice.actions.setSearch(search));
+};
 
 export const { reducer: KaooReducer } = kaooSlice;
 

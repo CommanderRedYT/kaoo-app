@@ -5,7 +5,7 @@ import type { AppThunk } from "../store";
 import type { SettingsState } from "../models/settings";
 
 const initialState: SettingsState = {
-    useDarkMode: false,
+    useDarkMode: true,
 };
 
 const settingsSlice = createSlice({
