@@ -3,6 +3,7 @@ export interface GoodsResponseDetailsItem {
     product_id: string;
     name: string;
     img: string;
+    cost: string;
 }
 
 export interface GoodsResponseItem {
@@ -17,7 +18,67 @@ export type GoodCategory = GoodsResponseItem;
 
 export type Good = GoodsResponseDetailsItem;
 
+export interface CartItem {
+    count: number;
+    good: Good;
+}
+
+export type KaooCart = { [key: string]: CartItem }; // key is product_id
+
+export interface KaooHistoryItemDetailsItem {
+    id: string;
+    order_id: string;
+    goodsid: string;
+    img: string;
+    goodsname: string;
+    goodscount: string;
+    goodscost: string;
+    product_id: string;
+}
+
+export interface KaooHistoryItem {
+    id: string;
+    dno: string;
+    time: string;
+    det: KaooHistoryItemDetailsItem[];
+}
+
+export type KaooHistory = KaooHistoryItem[];
+
+export interface OrderResponse {
+    code: number;
+    msg: string;
+    over: number;
+    type: string;
+    starttime: string;
+}
+
+export interface OrderRequest {
+    shopid: string;
+    ids: string[]; // Good.id
+    nums: string[]; // CartItem.count
+    table_num: string;
+    person_count: number;
+    adult: number;
+    child: number;
+}
+
+export enum DisplayFilter {
+    ALL = 'ALL',
+    FAVORITE = 'FAVORITE',
+    UNFAVORITE = 'UNFAVORITE',
+}
+
+export type DisplayFilterKeys = keyof typeof DisplayFilter;
+
 export interface KaooState {
     goods: GoodsResponse | null;
     search: string | null;
+    cart: KaooCart;
+    history: KaooHistory | null;
+    table_num: string | null;
+    adult: number;
+    child: number;
+    shopId: string;
+    filter: DisplayFilter;
 }

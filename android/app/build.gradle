@@ -102,6 +102,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode = versioning.getVersionCode()
         versionName = versioning.getVersionName()
+        missingDimensionStrategy "react-native-camera", "general"
     }
 
     splits {

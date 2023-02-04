@@ -1,7 +1,6 @@
 import {Searchbar} from "react-native-paper";
 import {updateSearch} from "../../slices/kaoo";
 import {useDispatch, useSelector} from "../../store";
-import {useState} from "react";
 
 export default function ItemSearch() {
     const dispatch = useDispatch();
@@ -16,7 +15,7 @@ export default function ItemSearch() {
             placeholder="Search"
             onChangeText={onChangeSearch}
             value={search ?? ''}
-            style={{ margin: 10 }}
+            style={{ borderRadius: 100 }}
         />
     );
 }
