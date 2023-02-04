@@ -8,8 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "postinstall": "npm-license-crawler -onlyDirectDependencies -json licenses.json",
-    "postuninstall": "npm-license-crawler -onlyDirectDependencies -json licenses.json"
+    "postinstall": "yarn run npm-license-crawler -onlyDirectDependencies -json licenses.json",
+    "postuninstall": "yarn run npm-license-crawler -onlyDirectDependencies -json licenses.json"
   },
   "dependencies": {
     "@georstat/react-native-image-cache": "^2.3.0",
@@ -22,6 +22,7 @@
     "@types/styled-components": "^5.1.26",
     "@types/url-parse": "^1.4.8",
     "moment": "^2.29.4",
+    "npm-license-crawler": "^0.2.1",
     "react": "^18.2.0",
     "react-native": "0.71.1",
     "react-native-camera": "^4.2.1",
