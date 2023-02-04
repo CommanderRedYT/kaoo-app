@@ -34,9 +34,13 @@ export default function CartGood({ cartItem }: { cartItem: CartItem }) {
                 title={`${cartItem.count}× ${cartItem.good.name}`}
                 left={() => cartItem.good.img &&
                     <FastImage
-                        style={{ width: 50, height: 50 }}
+                        style={{
+                            width: 50,
+                            height: 50,
+                            borderRadius: 15,
+                            marginLeft: 5
+                        }}
                         source={{ uri: cartItem.good.img }}
-                        resizeMode={FastImage.resizeMode.contain}
                     />
                 }
                 right={() => (

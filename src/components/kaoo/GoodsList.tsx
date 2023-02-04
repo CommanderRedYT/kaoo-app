@@ -3,12 +3,14 @@ import {SectionList} from "react-native";
 import Good from "./GoodItem";
 import {Text} from "react-native-paper";
 import {Box} from "@react-native-material/core";
-import GoodsListSectionHeader from "./GoodsListSectionHeader";
 import FastImage from "react-native-fast-image";
+import {DisplayFilter} from "../../models/kaoo";
 
 export default function GoodsList() {
     const categories = useSelector((state) => state.kaoo.goods);
     const search = useSelector((state) => state.kaoo.search);
+    const favorites = useSelector((state) => state.kaoo.filter !== DisplayFilter.ALL ? state.settings.favorites : null);
+    const filter = useSelector((state) => state.kaoo.filter);
 
     if (!categories) {
         return null;
@@ -24,6 +26,10 @@ export default function GoodsList() {
                             (
                                 item.name.toLowerCase().includes(search?.toLowerCase() ?? '') ||
                                 item.product_id.toString().includes(search ?? '')
+                            ) && (
+                                (filter === DisplayFilter.ALL) ||
+                                (filter === DisplayFilter.FAVORITE && favorites?.includes(item.id)) ||
+                                (filter === DisplayFilter.UNFAVORITE && !favorites?.includes(item.id))
                             )
                     )
             ,
@@ -50,14 +56,30 @@ export default function GoodsList() {
                             </>
                         )
                     }
+                    {
+                        search && search.toLowerCase() === '42' && (
+                            <>
+                                <FastImage
+                                    style={{ width: 400, height: 300 }}
+                                    source={{
+                                        uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Answer_to_Life.png/220px-Answer_to_Life.png',
+                                        priority: FastImage.priority.normal,
+                                    }}
+                                    resizeMode={FastImage.resizeMode.contain}
+                                />
+                            </>
+                        )
+                    }
                 </Box>
             ) : (
                 <SectionList
                     sections={sections}
-                    keyExtractor={(item) => item.product_id}
+                    keyExtractor={(item, index) => `${item.product_id}-${index}`}
                     renderItem={({ item }) => <Good good={item} />}
                     renderSectionHeader={({ section: { name } }) => (
-                        <GoodsListSectionHeader name={name} />
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', margin: 1, marginTop: 8 }}>
+                            {name}
+                        </Text>
                     )}
                     initialNumToRender={10}
                     maxToRenderPerBatch={10}

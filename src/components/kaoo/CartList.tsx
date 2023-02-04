@@ -34,7 +34,7 @@ export default function CartList() {
                     buttonColor={theme.colors.errorContainer}
                     textColor={theme.colors.onErrorContainer}
                 >
-                    Delete all
+                    Clear Cart
                 </Button>
             )}
             <SectionList

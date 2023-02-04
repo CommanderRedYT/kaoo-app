@@ -1,5 +1,5 @@
 import FastImage from "react-native-fast-image";
-import {Text, Divider, useTheme, IconButton} from "react-native-paper";
+import {Text, Divider, useTheme, IconButton, MD2Colors} from "react-native-paper";
 import {Good} from "../../models/kaoo";
 import {Box} from "@react-native-material/core";
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -28,7 +28,16 @@ export default function BigGood({ good }: { good: Good }) {
                     alignItems: 'center'
                 }}
             >
-                <FastImage style={{width: 200, height: 200}} source={{uri: good.img}}/>
+                <FastImage
+                    style={{
+                        width: 200,
+                        height: 200,
+                        borderRadius: 25,
+                    }}
+                    source={{
+                        uri: good.img
+                    }}
+                />
                 <Text style={{fontSize: 20, color: theme.colors.onBackground}}>{good.name}</Text>
             </Box>
             <Box
@@ -56,19 +65,31 @@ export default function BigGood({ good }: { good: Good }) {
                     }}
                 >
                     <IconButton
-                        icon={() => <FontAwesome5 name="minus" size={20} color={theme.colors.onBackground} />}
+                        icon={() => <FontAwesome5 name="minus" size={20} />}
                         onPress={() => {
                             dispatch(removeGoodFromCart(good));
                         }}
                         disabled={!canRemove}
+                        mode={'contained'}
+                        size={20}
                     />
-                    <Text style={{fontSize: 20, color: theme.colors.onBackground}}>{count}</Text>
+                    <Text
+                        style={{
+                            fontSize: 20,
+                            color: theme.colors.onBackground,
+                            marginHorizontal: 10,
+                        }}
+                    >
+                        {count}
+                    </Text>
                     <IconButton
-                        icon={() => <FontAwesome5 name="plus" size={20} color={theme.colors.onBackground} />}
+                        icon={() => <FontAwesome5 name="plus" size={20} />}
                         onPress={() => {
                             dispatch(addGoodToCart(good));
                         }}
                         disabled={!canAdd}
+                        mode={'contained-tonal'}
+                        size={20}
                     />
                 </Box>
             </Box>

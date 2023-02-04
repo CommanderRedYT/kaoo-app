@@ -10,7 +10,7 @@ import {updateHistory} from "../slices/kaoo";
 export default function HistoryTab({ navigation }: { navigation: any }) {
     const dispatch = useDispatch();
     const table_num = useSelector((state) => state.kaoo.table_num);
-    const shopId = useSelector((state) => state.kaoo.shopId);
+    const shopId = useSelector((state) => state.kaoo.shopid);
     const theme = useTheme();
 
     useEffect(() => {

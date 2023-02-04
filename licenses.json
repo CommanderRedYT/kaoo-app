@@ -53,6 +53,12 @@
         "licenseUrl": "https://github.com/DefinitelyTyped/DefinitelyTyped/raw/master/LICENSE",
         "parents": "KaooApp"
     },
+    "moment@2.29.4": {
+        "licenses": "MIT",
+        "repository": "https://github.com/moment/moment",
+        "licenseUrl": "https://github.com/moment/moment/raw/master/LICENSE",
+        "parents": "KaooApp"
+    },
     "react-native-camera@4.2.1": {
         "licenses": "MIT AND Apache-2.0 AND BSD-3-Clause",
         "repository": "https://github.com/react-native-community/react-native-camera",

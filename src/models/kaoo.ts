@@ -71,6 +71,16 @@ export enum DisplayFilter {
 
 export type DisplayFilterKeys = keyof typeof DisplayFilter;
 
+export interface ShopInfo {
+    max: string;
+    intervaltime: string;
+    shopname: string;
+    shoplogo: string;
+    phone:  string;
+    address: string;
+    email: string;
+}
+
 export interface KaooState {
     goods: GoodsResponse | null;
     search: string | null;
@@ -79,6 +89,7 @@ export interface KaooState {
     table_num: string | null;
     adult: number;
     child: number;
-    shopId: string;
+    shopid: string;
     filter: DisplayFilter;
+    shopInfo: ShopInfo | null;
 }

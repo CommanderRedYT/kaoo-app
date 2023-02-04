@@ -34,7 +34,17 @@ const settingsSlice = createSlice({
             if (state.favorites) {
                 state.favorites = state.favorites.filter((id) => id !== productId);
             }
-        }
+        },
+        toggleFavorite: (state, action: PayloadAction<string>) => {
+            const productId = action.payload;
+            if (state.favorites) {
+                if (state.favorites.includes(productId)) {
+                    state.favorites = state.favorites.filter((id) => id !== productId);
+                } else {
+                    state.favorites.push(productId);
+                }
+            }
+        },
     }
 });
 
@@ -57,6 +67,10 @@ export const addFavorite = (productId: string): AppThunk => async (dispatch) => 
 export const removeFavorite = (productId: string): AppThunk => async (dispatch) => {
     dispatch(settingsSlice.actions.removeFromFavorites(productId));
 };
+
+export const toggleFavorite = (productId: string): AppThunk => async (dispatch) => {
+    dispatch(settingsSlice.actions.toggleFavorite(productId));
+}
 
 export const { reducer: SettingsReducer } = settingsSlice;
 

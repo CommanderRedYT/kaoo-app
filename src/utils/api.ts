@@ -34,4 +34,20 @@ export async function makeOrder(order: OrderRequest): Promise<OrderResponse | vo
 
     const url = `http://order.huaqiaobang.com/index.php?ctrl=order&action=makeorder&shopid=${shopid}&contactname=1&address=1&minit=81000&ids=${ids.join(',')}&nums=${nums.join(',')}&table_num=${table_num}&person_count=${person_count}&adult=${adult}&child=${child}&pscost=0.00`;
     console.log('Making order...', url);
+    return await request(url, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+}
+
+export async function getShopInfo(shopId: string) {
+    // http://order.huaqiaobang.com/index.php?ctrl=shop&action=jmGetShopInfo&id=319
+    return await request(`http://order.huaqiaobang.com/index.php?ctrl=shop&action=jmGetShopInfo&id=${shopId}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
 }

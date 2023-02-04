@@ -13,8 +13,9 @@ const initialState: KaooState = {
     table_num: null,
     adult: 4,
     child: 4,
-    shopId: "323",
+    shopid: "323",
     filter: DisplayFilter.ALL,
+    shopInfo: null,
 };
 
 const kaooSlice = createSlice({
@@ -68,11 +69,14 @@ const kaooSlice = createSlice({
         setChild: (state, action: PayloadAction<KaooState["child"]>) => {
             state.child = action.payload;
         },
-        setShopId: (state, action: PayloadAction<KaooState["shopId"]>) => {
-            state.shopId = action.payload;
+        setShopId: (state, action: PayloadAction<KaooState["shopid"]>) => {
+            state.shopid = action.payload;
         },
         setFilter: (state, action: PayloadAction<DisplayFilter>) => {
             state.filter = action.payload;
+        },
+        setShopInfo: (state, action: PayloadAction<KaooState["shopInfo"]>) => {
+            state.shopInfo = action.payload;
         },
     }
 });
@@ -121,12 +125,43 @@ export const updateChild = (child: KaooState["child"]): AppThunk => async (dispa
     dispatch(kaooSlice.actions.setChild(child));
 };
 
-export const updateShopId = (shopId: KaooState["shopId"]): AppThunk => async (dispatch) => {
+export const updateShopId = (shopId: KaooState["shopid"]): AppThunk => async (dispatch) => {
     dispatch(kaooSlice.actions.setShopId(shopId));
 };
 
 export const updateFilter = (filter: DisplayFilter): AppThunk => async (dispatch) => {
     dispatch(kaooSlice.actions.setFilter(filter));
+};
+
+export const addGoodToCartByProductId = (productId: string): AppThunk => async (dispatch, getState) => {
+    const response = getState().kaoo.goods;
+    if (response) {
+        const good = response
+            .flatMap((category) => category.det)
+            .find((good) => good.product_id === productId);
+        if (good) {
+            dispatch(kaooSlice.actions.addToCart({good, count: 1}));
+        }
+    }
+};
+
+export const addGoodToCartByProductIdIfNotExist = (productId: string): AppThunk => async (dispatch, getState) => {
+    const response = getState().kaoo.goods;
+    if (response) {
+        const good = response
+            .flatMap((category) => category.det)
+            .find((good) => good.product_id === productId);
+        if (good) {
+            const cart = getState().kaoo.cart;
+            if (!cart[productId]) {
+                dispatch(kaooSlice.actions.addToCart({good, count: 1}));
+            }
+        }
+    }
+};
+
+export const updateShopInfo = (shopInfo: KaooState["shopInfo"]): AppThunk => async (dispatch) => {
+    dispatch(kaooSlice.actions.setShopInfo(shopInfo));
 };
 
 export const { reducer: KaooReducer } = kaooSlice;
