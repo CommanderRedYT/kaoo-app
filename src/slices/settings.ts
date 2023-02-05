@@ -3,11 +3,13 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import type { AppThunk } from "../store";
 import type { SettingsState } from "../models/settings";
+import {CartItem, KaooCart} from "../models/kaoo";
 
 const initialState: SettingsState = {
     useDarkMode: false,
     settingsLoaded: false,
     favorites: [],
+    saved_carts: [],
 };
 
 const settingsSlice = createSlice({
@@ -45,6 +47,29 @@ const settingsSlice = createSlice({
                 }
             }
         },
+        addSavedCart: (state, action: PayloadAction<KaooCart>) => {
+            const cart = action.payload;
+            if (state.saved_carts) {
+                state.saved_carts.push(cart);
+            }
+        },
+        addIfnotExistsSavedCart: (state, action: PayloadAction<KaooCart>) => {
+            const cart = action.payload;
+            if (state.saved_carts) {
+                if (!state.saved_carts.includes(cart)) {
+                    state.saved_carts.push(cart);
+                }
+            }
+        },
+        removeSavedCart: (state, action: PayloadAction<KaooCart>) => {
+            const cart = action.payload;
+            if (state.saved_carts) {
+                state.saved_carts = state.saved_carts.filter((c) => c !== cart);
+            }
+        },
+        clearSavedCarts: (state) => {
+            state.saved_carts = [];
+        },
     }
 });
 
@@ -70,7 +95,23 @@ export const removeFavorite = (productId: string): AppThunk => async (dispatch) 
 
 export const toggleFavorite = (productId: string): AppThunk => async (dispatch) => {
     dispatch(settingsSlice.actions.toggleFavorite(productId));
+};
+
+export const addSavedCart = (cart: KaooCart): AppThunk => async (dispatch) => {
+    dispatch(settingsSlice.actions.addSavedCart(cart));
+};
+
+export const addIfNotExistsSavedCart = (cart: KaooCart): AppThunk => async (dispatch) => {
+    dispatch(settingsSlice.actions.addIfnotExistsSavedCart(cart));
 }
+
+export const removeSavedCart = (cart: KaooCart): AppThunk => async (dispatch) => {
+    dispatch(settingsSlice.actions.removeSavedCart(cart));
+};
+
+export const clearSavedCarts = (): AppThunk => async (dispatch) => {
+    dispatch(settingsSlice.actions.clearSavedCarts());
+};
 
 export const { reducer: SettingsReducer } = settingsSlice;
 

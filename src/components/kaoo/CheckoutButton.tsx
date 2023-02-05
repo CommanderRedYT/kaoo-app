@@ -38,9 +38,12 @@ export default function CheckoutButton() {
         <Button
             mode="contained"
             style={{
-                width: '90%',
+                width: '65%',
                 marginTop: 10,
-                marginBottom: 10
+                marginBottom: 10,
+                borderRadius: 10,
+                borderTopRightRadius: 0,
+                borderBottomRightRadius: 0,
             }}
             buttonColor={'#1e8c1e'}
             textColor={'#ffffff'}
@@ -49,7 +52,7 @@ export default function CheckoutButton() {
         >
             {count !== 0 ? (
                 <>
-                    Checkout {total}€ ({count} items)
+                    Checkout {total}€ ({count} {count > 1 ? 'items' : 'item'})
                 </>
             ) : (
                 <>

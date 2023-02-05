@@ -1,8 +1,8 @@
 import {Box} from "@react-native-material/core";
 import {Divider, Text, useTheme, Switch, Title, Button, TextInput} from "react-native-paper";
 import {useDispatch, useSelector} from "../store";
-import {StyledScrollView, StyledView} from "../style";
-import {updateFavorites, updateUseDarkMode} from "../slices/settings";
+import {StyledScrollView} from "../style";
+import {clearSavedCarts, updateFavorites, updateUseDarkMode} from "../slices/settings";
 import {saveSettings} from "../utils/settings";
 import {updateAdult, updateChild, updateHistory, updateShopId, updateTableNum} from "../slices/kaoo";
 import {FlatList, Linking} from "react-native";
@@ -21,6 +21,7 @@ export default function SettingsTab({ navigation }: { navigation: any }) {
     const adult = useSelector((state) => state.kaoo.adult);
     const child = useSelector((state) => state.kaoo.child);
     const shopInfo = useSelector((state) => state.kaoo.shopInfo);
+    const savedCarts = useSelector((state) => state.settings.saved_carts);
 
     const dispatchWithSave = (action: any) => {
         dispatch(action);
@@ -30,6 +31,10 @@ export default function SettingsTab({ navigation }: { navigation: any }) {
     const clearTableNumber = () => {
         dispatch(updateTableNum(null));
         dispatch(updateHistory(null));
+    };
+
+    const clear_saved_carts = () => {
+        dispatchWithSave(clearSavedCarts());
     };
 
     const clearFavorites = () => {
@@ -56,14 +61,20 @@ export default function SettingsTab({ navigation }: { navigation: any }) {
     return (
         <StyledScrollView theme={theme}>
             <Box style={{flex: 1, alignSelf: 'stretch', alignItems: 'center', marginTop: 20}}>
-                <Title>Settings</Title>
+                <Title>
+                    Settings
+                </Title>
                 <Divider style={{width: '90%', height: 2, marginTop: 10, marginBottom: 10}} />
                 <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
-                    <Text>Use dark mode</Text>
+                    <Text>
+                        Use dark mode
+                    </Text>
                     <Switch value={useDarkMode} onValueChange={() => dispatchWithSave(updateUseDarkMode(!useDarkMode))}/>
                 </Box>
                 <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
-                    <Text>Clear Table Number</Text>
+                    <Text>
+                        Clear Table Number ({table_num})
+                    </Text>
                     <Button
                         onPress={clearTableNumber}
                         mode="contained"
@@ -73,7 +84,9 @@ export default function SettingsTab({ navigation }: { navigation: any }) {
                     </Button>
                 </Box>
                 <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
-                    <Text>Clear Favorites</Text>
+                    <Text>
+                        Clear Favorites ({favorites.length})
+                    </Text>
                     <Button
                         onPress={clearFavorites}
                         mode="contained"
@@ -84,10 +97,28 @@ export default function SettingsTab({ navigation }: { navigation: any }) {
                         Clear
                     </Button>
                 </Box>
-                <Divider style={{width: '90%', height: 2, marginTop: 10, marginBottom: 10}} />
-                <Title>Advanced</Title>
                 <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
-                    <Text>Set shop id</Text>
+                    <Text>
+                        Clear Saved Carts ({savedCarts.length})
+                    </Text>
+                    <Button
+                        onPress={clear_saved_carts}
+                        mode="contained"
+                        disabled={!savedCarts.length}
+                        buttonColor={'#f44336'}
+                        textColor={'#fff'}
+                    >
+                        Clear
+                    </Button>
+                </Box>
+                <Divider style={{width: '90%', height: 2, marginTop: 10, marginBottom: 10}} />
+                <Title>
+                    Advanced
+                </Title>
+                <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
+                    <Text>
+                        Set shop id
+                    </Text>
                     <TextInput
                         mode="outlined"
                         value={shopid}
@@ -96,7 +127,9 @@ export default function SettingsTab({ navigation }: { navigation: any }) {
                     />
                 </Box>
                 <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
-                    <Text>Set child count</Text>
+                    <Text>
+                        Set child count
+                    </Text>
                     <TextInput
                         mode="outlined"
                         value={child.toString()}
@@ -105,7 +138,9 @@ export default function SettingsTab({ navigation }: { navigation: any }) {
                     />
                 </Box>
                 <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
-                    <Text>Set adult count</Text>
+                    <Text>
+                        Set adult count
+                    </Text>
                     <TextInput
                         mode="outlined"
                         value={adult.toString()}
@@ -114,7 +149,9 @@ export default function SettingsTab({ navigation }: { navigation: any }) {
                     />
                 </Box>
                 <Divider style={{width: '90%', height: 2, marginTop: 10, marginBottom: 10}} />
-                <Title>Shop Info</Title>
+                <Title>
+                    Shop Info
+                </Title>
                 <Box>
                     <Text style={{marginLeft: 10, marginRight: 10, textAlign: 'center'}}>
                         Shopname: {shopInfo?.shopname}

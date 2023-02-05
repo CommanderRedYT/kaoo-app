@@ -27,7 +27,7 @@ export default function BottomNavigation() {
                 name="ListTab"
                 component={ListTab}
                 options={{
-                    tabBarLabel: 'List',
+                    tabBarLabel: 'Order',
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="restaurant-outline" color={color} size={size} />
                     ),
