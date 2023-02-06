@@ -1,4 +1,4 @@
-import {Button, Text, TextInput} from "react-native-paper";
+import {Button, TextInput, Title} from "react-native-paper";
 import TableNumberScanner from "./TableNumberScanner";
 import {Box} from "@react-native-material/core";
 import {useEffect, useState} from "react";
@@ -44,7 +44,7 @@ export default function TableSelector() {
 
     return (
         <Box style={{flex: 1, alignSelf: 'stretch', marginTop: 20}}>
-            <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Please select a table</Text>
+            <Title style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Please select a table</Title>
             <TextInput
                 label="Table Number"
                 value={change_table}
@@ -54,7 +54,7 @@ export default function TableSelector() {
             <Button
                 mode="contained"
                 onPress={handleSaveTableNum}
-                style={{margin: 10}}
+                style={{margin: 5, borderRadius: 5}}
             >
                 Save Table Number
             </Button>
@@ -62,9 +62,10 @@ export default function TableSelector() {
                 <TableNumberScanner />
             ) : (
                 <Button
-                    mode="contained"
+                    mode="elevated"
                     onPress={() => setUseCamera(true)}
-                    style={{margin: 10}}
+                    style={{margin: 5, borderRadius: 5}}
+                    elevation={5}
                 >
                     Scan Table Number
                 </Button>
