@@ -38,7 +38,7 @@ export default function CheckoutButton() {
         <Button
             mode="contained"
             style={{
-                width: '65%',
+                //width: '100%',
                 marginTop: 10,
                 marginBottom: 10,
                 borderRadius: 10,

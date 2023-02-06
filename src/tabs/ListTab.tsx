@@ -1,8 +1,9 @@
+import {View} from "react-native";
 import GoodsList from "../components/kaoo/GoodsList";
 import {Box, Divider} from "@react-native-material/core";
 import {ActivityIndicator, Text, useTheme} from "react-native-paper";
 import {useDispatch, useSelector} from "../store";
-import {StyledView} from "../style";
+import {StyledView, StyledSafeAreaView} from "../style";
 import ListTabTopBar from "../components/kaoo/ListTabTopBar";
 import TableSelector from "../components/kaoo/TableSelector";
 import {useEffect} from "react";
@@ -34,23 +35,25 @@ export default function ListTab({ navigation }: { navigation: any }) {
     }, [shopId]);
 
     return (
-        <StyledView theme={theme}>
-            {table_num ? (
-                <Box style={{flex: 1, alignSelf: 'stretch', marginTop: 10, marginLeft: 10, marginRight: 10}}>
-                    <ListTabTopBar />
-                    <Divider style={{width: '100%', height: 2, marginTop: 10}} />
-                    {goods?.length ? (
-                        <GoodsList/>
-                    ) : (
-                        <Box style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
-                            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Loading...</Text>
-                            <ActivityIndicator animating={true} color={theme.colors.primary} style={{marginLeft: 10}}/>
-                        </Box>
-                    )}
-                </Box>
-            ) : (
-                <TableSelector />
-            )}
-        </StyledView>
+        <StyledSafeAreaView theme={theme}>
+            <StyledView theme={theme}>
+                {table_num ? (
+                    <Box style={{flex: 1, alignSelf: 'stretch', marginTop: 10, marginLeft: 10, marginRight: 10}}>
+                        <ListTabTopBar />
+                        <Divider style={{width: '100%', height: 2, marginTop: 10}} />
+                        {goods?.length ? (
+                            <GoodsList/>
+                        ) : (
+                            <Box style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+                                <Text style={{fontSize: 20, fontWeight: 'bold'}}>Loading...</Text>
+                                <ActivityIndicator animating={true} color={theme.colors.primary} style={{marginLeft: 10}}/>
+                            </Box>
+                        )}
+                    </Box>
+                ) : (
+                    <TableSelector />
+                )}
+            </StyledView>
+        </StyledSafeAreaView>
     );
 }

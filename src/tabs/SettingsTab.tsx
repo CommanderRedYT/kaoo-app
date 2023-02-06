@@ -1,7 +1,8 @@
+import {View} from "react-native";
 import {Box} from "@react-native-material/core";
 import {Divider, Text, useTheme, Switch, Title, Button, TextInput} from "react-native-paper";
 import {useDispatch, useSelector} from "../store";
-import {StyledScrollView} from "../style";
+import {StyledScrollView, StyledSafeAreaView} from "../style";
 import {clearSavedCarts, updateFavorites, updateUseDarkMode} from "../slices/settings";
 import {saveSettings} from "../utils/settings";
 import {updateAdult, updateChild, updateHistory, updateShopId, updateTableNum} from "../slices/kaoo";
@@ -59,156 +60,158 @@ export default function SettingsTab({ navigation }: { navigation: any }) {
     });
 
     return (
-        <StyledScrollView theme={theme}>
-            <Box style={{flex: 1, alignSelf: 'stretch', alignItems: 'center', marginTop: 20}}>
-                <Title>
-                    Settings
-                </Title>
-                <Divider style={{width: '90%', height: 2, marginTop: 10, marginBottom: 10}} />
-                <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
-                    <Text>
-                        Use dark mode
-                    </Text>
-                    <Switch value={useDarkMode} onValueChange={() => dispatchWithSave(updateUseDarkMode(!useDarkMode))}/>
-                </Box>
-                <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
-                    <Text>
-                        Clear Table Number ({table_num})
-                    </Text>
-                    <Button
-                        onPress={clearTableNumber}
-                        mode="contained"
-                        disabled={!table_num}
-                    >
-                        Clear
-                    </Button>
-                </Box>
-                <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
-                    <Text>
-                        Clear Favorites ({favorites.length})
-                    </Text>
-                    <Button
-                        onPress={clearFavorites}
-                        mode="contained"
-                        disabled={!favorites.length}
-                        buttonColor={'#f44336'}
-                        textColor={'#fff'}
-                    >
-                        Clear
-                    </Button>
-                </Box>
-                <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
-                    <Text>
-                        Clear Saved Carts ({savedCarts.length})
-                    </Text>
-                    <Button
-                        onPress={clear_saved_carts}
-                        mode="contained"
-                        disabled={!savedCarts.length}
-                        buttonColor={'#f44336'}
-                        textColor={'#fff'}
-                    >
-                        Clear
-                    </Button>
-                </Box>
-                <Divider style={{width: '90%', height: 2, marginTop: 10, marginBottom: 10}} />
-                <Title>
-                    Advanced
-                </Title>
-                <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
-                    <Text>
-                        Set shop id
-                    </Text>
-                    <TextInput
-                        mode="outlined"
-                        value={shopid}
-                        onChangeText={(text) => dispatch(updateShopId(text))}
-                        keyboardType={'numeric'}
+        <StyledSafeAreaView theme={theme}>
+            <StyledScrollView theme={theme}>
+                <Box style={{flex: 1, alignSelf: 'stretch', alignItems: 'center', marginTop: 20}}>
+                    <Title>
+                        Settings
+                    </Title>
+                    <Divider style={{width: '90%', height: 2, marginTop: 10, marginBottom: 10}} />
+                    <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
+                        <Text>
+                            Use dark mode
+                        </Text>
+                        <Switch value={useDarkMode} onValueChange={() => dispatchWithSave(updateUseDarkMode(!useDarkMode))}/>
+                    </Box>
+                    <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
+                        <Text>
+                            Clear Table Number ({table_num})
+                        </Text>
+                        <Button
+                            onPress={clearTableNumber}
+                            mode="contained"
+                            disabled={!table_num}
+                        >
+                            Clear
+                        </Button>
+                    </Box>
+                    <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
+                        <Text>
+                            Clear Favorites ({favorites.length})
+                        </Text>
+                        <Button
+                            onPress={clearFavorites}
+                            mode="contained"
+                            disabled={!favorites.length}
+                            buttonColor={'#f44336'}
+                            textColor={'#fff'}
+                        >
+                            Clear
+                        </Button>
+                    </Box>
+                    <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
+                        <Text>
+                            Clear Saved Carts ({savedCarts.length})
+                        </Text>
+                        <Button
+                            onPress={clear_saved_carts}
+                            mode="contained"
+                            disabled={!savedCarts.length}
+                            buttonColor={'#f44336'}
+                            textColor={'#fff'}
+                        >
+                            Clear
+                        </Button>
+                    </Box>
+                    <Divider style={{width: '90%', height: 2, marginTop: 10, marginBottom: 10}} />
+                    <Title>
+                        Advanced
+                    </Title>
+                    <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
+                        <Text>
+                            Set shop id
+                        </Text>
+                        <TextInput
+                            mode="outlined"
+                            value={shopid}
+                            onChangeText={(text) => dispatch(updateShopId(text))}
+                            keyboardType={'numeric'}
+                        />
+                    </Box>
+                    <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
+                        <Text>
+                            Set child count
+                        </Text>
+                        <TextInput
+                            mode="outlined"
+                            value={child.toString()}
+                            onChangeText={(text) => dispatch(updateChild(parseInt(text)))}
+                            keyboardType={'numeric'}
+                        />
+                    </Box>
+                    <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
+                        <Text>
+                            Set adult count
+                        </Text>
+                        <TextInput
+                            mode="outlined"
+                            value={adult.toString()}
+                            onChangeText={(text) => dispatch(updateAdult(parseInt(text)))}
+                            keyboardType={'numeric'}
+                        />
+                    </Box>
+                    <Divider style={{width: '90%', height: 2, marginTop: 10, marginBottom: 10}} />
+                    <Title>
+                        Shop Info
+                    </Title>
+                    <Box>
+                        <Text style={{marginLeft: 10, marginRight: 10, textAlign: 'center'}}>
+                            Shopname: {shopInfo?.shopname}
+                        </Text>
+                        <Text style={{marginLeft: 10, marginRight: 10, textAlign: 'center'}}>
+                            Address: {shopInfo?.address}
+                        </Text>
+                        <Text style={{marginLeft: 10, marginRight: 10, textAlign: 'center'}}>
+                            Phone: {shopInfo?.phone}
+                        </Text>
+                        <Text style={{marginLeft: 10, marginRight: 10, textAlign: 'center'}}>
+                            Email: {shopInfo?.email}
+                        </Text>
+                        <Text style={{marginLeft: 10, marginRight: 10, textAlign: 'center'}}>
+                            Intervaltime: {shopInfo?.intervaltime}
+                        </Text>
+                        <Text style={{marginLeft: 10, marginRight: 10, textAlign: 'center'}}>
+                            Max: {shopInfo?.max}
+                        </Text>
+                        <FastImage
+                            style={{width: 100, height: 100, alignSelf: 'center'}}
+                            source={{
+                                uri: shopInfo?.shoplogo,
+                                priority: FastImage.priority.normal,
+                            }}
+                            resizeMode={FastImage.resizeMode.contain}
+                        />
+                    </Box>
+                    <Divider style={{width: '90%', height: 2, marginTop: 10, marginBottom: 10}} />
+                    <Title>Licenses</Title>
+                    <FlatList
+                        data={licenseList}
+                        renderItem={({ item }) => (
+                            <>
+                                <Text style={{marginLeft: 10, marginRight: 10, textAlign: 'center'}}>
+                                    {item.name} ({item.version}, {item.license.licenses})
+                                </Text>
+                                <Button
+                                    mode="contained"
+                                    onPress={() => {
+                                        Linking.openURL(item.license.repository);
+                                    }}
+                                    style={{margin: 10}}
+                                    icon="github"
+                                    contentStyle={{flexDirection: 'row-reverse'}}
+                                    buttonColor={'#333'}
+                                    textColor={'#fff'}
+                                >
+                                    View on GitHub
+                                </Button>
+                            </>
+                        )}
+                        keyExtractor={(item, index) => index.toString()}
+                        ItemSeparatorComponent={() => <Divider style={{margin: 10}}/>}
+                        scrollEnabled={false}
                     />
                 </Box>
-                <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
-                    <Text>
-                        Set child count
-                    </Text>
-                    <TextInput
-                        mode="outlined"
-                        value={child.toString()}
-                        onChangeText={(text) => dispatch(updateChild(parseInt(text)))}
-                        keyboardType={'numeric'}
-                    />
-                </Box>
-                <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
-                    <Text>
-                        Set adult count
-                    </Text>
-                    <TextInput
-                        mode="outlined"
-                        value={adult.toString()}
-                        onChangeText={(text) => dispatch(updateAdult(parseInt(text)))}
-                        keyboardType={'numeric'}
-                    />
-                </Box>
-                <Divider style={{width: '90%', height: 2, marginTop: 10, marginBottom: 10}} />
-                <Title>
-                    Shop Info
-                </Title>
-                <Box>
-                    <Text style={{marginLeft: 10, marginRight: 10, textAlign: 'center'}}>
-                        Shopname: {shopInfo?.shopname}
-                    </Text>
-                    <Text style={{marginLeft: 10, marginRight: 10, textAlign: 'center'}}>
-                        Address: {shopInfo?.address}
-                    </Text>
-                    <Text style={{marginLeft: 10, marginRight: 10, textAlign: 'center'}}>
-                        Phone: {shopInfo?.phone}
-                    </Text>
-                    <Text style={{marginLeft: 10, marginRight: 10, textAlign: 'center'}}>
-                        Email: {shopInfo?.email}
-                    </Text>
-                    <Text style={{marginLeft: 10, marginRight: 10, textAlign: 'center'}}>
-                        Intervaltime: {shopInfo?.intervaltime}
-                    </Text>
-                    <Text style={{marginLeft: 10, marginRight: 10, textAlign: 'center'}}>
-                        Max: {shopInfo?.max}
-                    </Text>
-                    <FastImage
-                        style={{width: 100, height: 100, alignSelf: 'center'}}
-                        source={{
-                            uri: shopInfo?.shoplogo,
-                            priority: FastImage.priority.normal,
-                        }}
-                        resizeMode={FastImage.resizeMode.contain}
-                    />
-                </Box>
-                <Divider style={{width: '90%', height: 2, marginTop: 10, marginBottom: 10}} />
-                <Title>Licenses</Title>
-                <FlatList
-                    data={licenseList}
-                    renderItem={({ item }) => (
-                        <>
-                            <Text style={{marginLeft: 10, marginRight: 10, textAlign: 'center'}}>
-                                {item.name} ({item.version}, {item.license.licenses})
-                            </Text>
-                            <Button
-                                mode="contained"
-                                onPress={() => {
-                                    Linking.openURL(item.license.repository);
-                                }}
-                                style={{margin: 10}}
-                                icon="github"
-                                contentStyle={{flexDirection: 'row-reverse'}}
-                                buttonColor={'#333'}
-                                textColor={'#fff'}
-                            >
-                                View on GitHub
-                            </Button>
-                        </>
-                    )}
-                    keyExtractor={(item, index) => index.toString()}
-                    ItemSeparatorComponent={() => <Divider style={{margin: 10}}/>}
-                    scrollEnabled={false}
-                />
-            </Box>
-        </StyledScrollView>
+            </StyledScrollView>
+        </StyledSafeAreaView>
     );
 }

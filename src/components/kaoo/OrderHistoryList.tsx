@@ -21,6 +21,8 @@ export default function OrderHistoryList() {
         data: [historyItem],
     }));
 
+    console.log('history length', history?.length);
+
     const getHistory = async () => {
         if (!table_num) {
             setRefreshing(false);
@@ -29,7 +31,10 @@ export default function OrderHistoryList() {
 
         try {
             const data = await api.getOrderHistory(shopId, table_num);
-            dispatch(updateHistory(data));
+            // console.log(data);
+
+            if (data.length)
+                dispatch(updateHistory(data));
             setRefreshing(false);
         } catch (error) {
             console.log(error);

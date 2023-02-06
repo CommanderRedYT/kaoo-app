@@ -20,7 +20,7 @@ export default function SaveCartButton() {
         <Button
             mode="contained"
             style={{
-                width: '35%',
+                //width: '100%',
                 marginTop: 10,
                 marginBottom: 10,
                 borderRadius: 10,

@@ -1,4 +1,3 @@
-// this app should use deep link to open the app when accessing "http://order.huaqiaobang.com/kaoo/#/goods?tablenum=B20" => extract tablenum and set it in the store
 import { Linking } from "react-native";
 import { Provider as ReduxProvider } from "react-redux";
 import { Provider as PaperProvider, MD3DarkTheme, MD3LightTheme } from "react-native-paper";
@@ -12,8 +11,8 @@ import { ReactNavigationDarkTheme, ReactNavigationLightTheme } from "./style";
 import {loadSettings} from "./utils/settings";
 import {useEffect} from "react";
 import {updateTableNum} from "./slices/kaoo";
-import URL from "url-parse";
 import {getSearchParamFromURL} from "./utils/generic";
+import {SafeAreaProvider} from "react-native-safe-area-context";
 
 CacheManager.config = {
     baseDir: `${Dirs.CacheDir}/images_cache/`,
@@ -25,9 +24,11 @@ CacheManager.config = {
 
 export default function App() {
     return (
-        <ReduxProvider store={store}>
-            <_App />
-        </ReduxProvider>
+        <SafeAreaProvider>
+            <ReduxProvider store={store}>
+                <_App />
+            </ReduxProvider>
+        </SafeAreaProvider>
     );
 }
 

@@ -1,12 +1,13 @@
 import {useSelector} from "../../store";
 import {SectionList} from "react-native";
 import Good from "./GoodItem";
-import {Text} from "react-native-paper";
+import {useTheme, Text} from "react-native-paper";
 import {Box} from "@react-native-material/core";
 import FastImage from "react-native-fast-image";
 import {DisplayFilter} from "../../models/kaoo";
 
 export default function GoodsList() {
+    const theme = useTheme();
     const categories = useSelector((state) => state.kaoo.goods);
     const search = useSelector((state) => state.kaoo.search);
     const favorites = useSelector((state) => state.kaoo.filter !== DisplayFilter.ALL ? state.settings.favorites : null);
@@ -77,9 +78,11 @@ export default function GoodsList() {
                     keyExtractor={(item, index) => `${item.product_id}-${index}`}
                     renderItem={({ item }) => <Good good={item} />}
                     renderSectionHeader={({ section: { name } }) => (
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', margin: 1, marginTop: 8 }}>
-                            {name}
-                        </Text>
+                        <Box style={{ backgroundColor: theme.colors.background }}>
+                            <Text style={{ fontSize: 18, fontWeight: 'bold', margin: 1, marginTop: 8 }} >
+                                {name}
+                            </Text>
+                        </Box>
                     )}
                     initialNumToRender={10}
                     maxToRenderPerBatch={10}
