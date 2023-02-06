@@ -3,8 +3,7 @@ import {Box, Divider} from "@react-native-material/core";
 import {useTheme, Title} from "react-native-paper";
 import {StyledView, StyledSafeAreaView} from "../style";
 import CartList from "../components/kaoo/CartList";
-import CheckoutButton from "../components/kaoo/CheckoutButton";
-import SaveCartButton from "../components/kaoo/SaveCartButton";
+import CartButtons from "../components/kaoo/CartButtons";
 
 export default function CartTab({ navigation }: { navigation: any }) {
     const theme = useTheme();
@@ -26,16 +25,7 @@ export default function CartTab({ navigation }: { navigation: any }) {
                     >
                         <CartList/>
                     </Box>
-                    <Box
-                        style={{
-                            flexDirection: 'row',
-                            width: '95%',
-                            justifyContent: 'center',
-                        }}
-                    >
-                        <CheckoutButton />
-                        <SaveCartButton />
-                    </Box>
+                    <CartButtons/>
                 </Box>
             </StyledView>
         </StyledSafeAreaView>
