@@ -30,7 +30,7 @@ export default function HistoryTab({ navigation }: { navigation: any }) {
             }
         };
 
-        const interval = setInterval(func, 3500/*30000*/);
+        const interval = setInterval(func, 30000);
         func();
         return () => clearInterval(interval);
     }, [table_num]);
