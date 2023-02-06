@@ -2,8 +2,10 @@ import type {PayloadAction} from "@reduxjs/toolkit";
 import {createSlice} from "@reduxjs/toolkit";
 
 import type {AppThunk} from "../store";
-import type {CartItem, KaooState} from "../models/kaoo";
-import {DisplayFilter, Good} from "../models/kaoo";
+import type {CartItem, KaooState, OrderedItem} from "../models/kaoo";
+import {DisplayFilter, Good, KaooCart} from "../models/kaoo";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState: KaooState = {
     goods: null,
@@ -16,6 +18,7 @@ const initialState: KaooState = {
     shopid: "323",
     filter: DisplayFilter.ALL,
     shopInfo: null,
+    orderedItems: [],
 };
 
 const kaooSlice = createSlice({
@@ -78,6 +81,43 @@ const kaooSlice = createSlice({
         setShopInfo: (state, action: PayloadAction<KaooState["shopInfo"]>) => {
             state.shopInfo = action.payload;
         },
+        setOrderedItems: (state, action: PayloadAction<KaooState["orderedItems"]>) => {
+            state.orderedItems = action.payload;
+        },
+        addOrderedItemToOrderList: (state, action: PayloadAction<OrderedItem>) => {
+            state.orderedItems.push(action.payload);
+        },
+        addOrderToOrderList: (state, action: PayloadAction<KaooCart>) => {
+            const cart = action.payload;
+            Object.keys(cart).forEach((productId) => {
+                if (state.orderedItems.find((item) => item.product_id === productId)) {
+                    return;
+                }
+
+                const orderedItem: OrderedItem = {
+                    product_id: productId,
+                    count: cart[productId].count,
+                    received: false,
+                    uuid: uuidv4(),
+                };
+
+                state.orderedItems.push(orderedItem);
+            });
+        },
+        updateOrderItem: (state, action: PayloadAction<OrderedItem>) => {
+            const orderedItem = action.payload;
+            const index = state.orderedItems.findIndex((item) => item.uuid === orderedItem.uuid);
+            if (index >= 0) {
+                state.orderedItems[index] = orderedItem;
+            }
+        },
+        toggleOrderItemReceived: (state, action: PayloadAction<OrderedItem>) => {
+            const orderedItem = action.payload;
+            const index = state.orderedItems.findIndex((item) => item.uuid === orderedItem.uuid);
+            if (index >= 0) {
+                state.orderedItems[index].received = !state.orderedItems[index].received;
+            }
+        }
     }
 });
 
@@ -162,6 +202,32 @@ export const addGoodToCartByProductIdIfNotExist = (productId: string): AppThunk 
 
 export const updateShopInfo = (shopInfo: KaooState["shopInfo"]): AppThunk => async (dispatch) => {
     dispatch(kaooSlice.actions.setShopInfo(shopInfo));
+};
+
+export const updateOrderedItems = (orderedItems: KaooState["orderedItems"]): AppThunk => async (dispatch) => {
+    dispatch(kaooSlice.actions.setOrderedItems(orderedItems));
+};
+
+export const addOrderedItemToOrderList = (orderedItem: OrderedItem): AppThunk => async (dispatch) => {
+    dispatch(kaooSlice.actions.addOrderedItemToOrderList(orderedItem));
+};
+
+export const addOrderToOrderList = (cart: KaooCart): AppThunk => async (dispatch) => {
+    dispatch(kaooSlice.actions.addOrderToOrderList(cart));
+};
+
+export const updateOrderItem = (orderedItem: OrderedItem): AppThunk => async (dispatch) => {
+    dispatch(kaooSlice.actions.updateOrderItem(orderedItem));
+};
+
+export const toggleOrderedItemReceived = (orderedItem: OrderedItem): AppThunk => async (dispatch) => {
+    orderedItem.received = !orderedItem.received;
+    console.log(orderedItem.received);
+    dispatch(kaooSlice.actions.updateOrderItem(orderedItem));
+};
+
+export const toggleOrderItemReceived = (orderedItem: OrderedItem): AppThunk => async (dispatch) => {
+    dispatch(kaooSlice.actions.toggleOrderItemReceived(orderedItem));
 };
 
 export const { reducer: KaooReducer } = kaooSlice;

@@ -81,6 +81,15 @@ export interface ShopInfo {
     email: string;
 }
 
+export interface OrderedItem {
+    product_id: string;
+    count: number;
+    received: boolean;
+    uuid: string;
+}
+
+export type OrderedItems = OrderedItem[];
+
 export interface KaooState {
     goods: GoodsResponse | null;
     search: string | null;
@@ -92,4 +101,5 @@ export interface KaooState {
     shopid: string;
     filter: DisplayFilter;
     shopInfo: ShopInfo | null;
+    orderedItems: OrderedItems;
 }

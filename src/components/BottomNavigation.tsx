@@ -6,6 +6,7 @@ import SettingsTab from "../tabs/SettingsTab";
 import CartTab from "../tabs/CartTab";
 import {useSelector} from "../store";
 import HistoryTab from "../tabs/HistoryTab";
+import OrderStatusTab from "../tabs/OrderStatusTab";
 
 const Tabs = createBottomTabNavigator();
 
@@ -55,6 +56,18 @@ export default function BottomNavigation() {
                     tabBarLabel: 'History',
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="list" color={color} size={size} />
+                    ),
+                    tabBarActiveTintColor: theme.colors.primary,
+                    tabBarInactiveTintColor: theme.colors.onSurfaceDisabled,
+                }}
+            />
+            <Tabs.Screen
+                name="OrderStatusTab"
+                component={OrderStatusTab}
+                options={{
+                    tabBarLabel: 'Status',
+                    tabBarIcon: ({color, size}) => (
+                        <Ionicons name="information" color={color} size={size}/>
                     ),
                     tabBarActiveTintColor: theme.colors.primary,
                     tabBarInactiveTintColor: theme.colors.onSurfaceDisabled,

@@ -21,6 +21,7 @@
     "@reduxjs/toolkit": "^1.9.1",
     "@types/styled-components": "^5.1.26",
     "@types/url-parse": "^1.4.8",
+    "@types/uuid": "^9.0.0",
     "moment": "^2.29.4",
     "npm-license-crawler": "^0.2.1",
     "react": "^18.2.0",
@@ -29,6 +30,7 @@
     "react-native-elements": "^3.4.3",
     "react-native-fast-image": "^8.6.3",
     "react-native-file-access": "^2.5.2",
+    "react-native-get-random-values": "^1.8.0",
     "react-native-paper": "^5.1.4",
     "react-native-permissions": "^3.6.1",
     "react-native-qrcode-scanner": "^1.5.5",
@@ -42,7 +44,8 @@
     "redux-thunk": "^2.4.2",
     "redux-toolkit": "^1.1.2",
     "styled-components": "^5.3.6",
-    "url-parse": "^1.5.10"
+    "url-parse": "^1.5.10",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

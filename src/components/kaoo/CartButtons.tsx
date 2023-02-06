@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "../../store";
 import {addIfNotExistsSavedCart} from "../../slices/settings";
 import {generateOrder} from "../../utils/kaoo";
 import {makeOrder} from "../../utils/api";
-import {clearCart} from "../../slices/kaoo";
+import {addOrderedItemToOrderList, addOrderToOrderList, clearCart} from "../../slices/kaoo";
 import {Alert} from "react-native";
 
 export default function CartButtons() {
@@ -36,6 +36,7 @@ export default function CartButtons() {
 
         if (result) {
             Alert.alert('Order placed', result.msg);
+            dispatch(addOrderToOrderList(cart));
         } else {
             Alert.alert('Order failed', 'Please try again later');
         }
