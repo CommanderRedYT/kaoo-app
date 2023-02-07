@@ -2,11 +2,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { store } from "../store";
 import {updateSettingsLoaded, updateUseDarkMode, updateFavorites} from "../slices/settings";
 import {SettingsState} from "../models/settings";
+import {Appearance} from "react-native";
 
 const defaultSettings: SettingsState = {
-    useDarkMode: false,
+    useDarkMode: Appearance.getColorScheme() === "dark",
     settingsLoaded: false,
     favorites: [],
+    saved_carts: [],
 };
 
 export function loadSettings() {
