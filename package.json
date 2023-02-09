@@ -20,7 +20,6 @@
     "@react-navigation/native-stack": "^6.9.8",
     "@reduxjs/toolkit": "^1.9.1",
     "@types/styled-components": "^5.1.26",
-    "@types/url-parse": "^1.4.8",
     "@types/uuid": "^9.0.0",
     "moment": "^2.29.4",
     "npm-license-crawler": "^0.2.1",
@@ -40,11 +39,8 @@
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^8.0.5",
     "redux": "^4.2.0",
-    "redux-promise": "^0.6.0",
     "redux-thunk": "^2.4.2",
-    "redux-toolkit": "^1.1.2",
     "styled-components": "^5.3.6",
-    "url-parse": "^1.5.10",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
