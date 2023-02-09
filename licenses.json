@@ -47,12 +47,6 @@
         "licenseUrl": "https://github.com/DefinitelyTyped/DefinitelyTyped/raw/master/LICENSE",
         "parents": "KaooApp"
     },
-    "@types/url-parse@1.4.8": {
-        "licenses": "MIT",
-        "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
-        "licenseUrl": "https://github.com/DefinitelyTyped/DefinitelyTyped/raw/master/LICENSE",
-        "parents": "KaooApp"
-    },
     "@types/uuid@9.0.0": {
         "licenses": "MIT",
         "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
@@ -143,7 +137,7 @@
         "licenseUrl": "https://github.com/oblador/react-native-vector-icons/raw/master/LICENSE",
         "parents": "KaooApp"
     },
-    "react-native@0.71.1": {
+    "react-native@0.71.2": {
         "licenses": "MIT",
         "repository": "github:facebook/react-native",
         "licenseUrl": "github:facebook/react-native",
@@ -161,22 +155,10 @@
         "licenseUrl": "https://github.com/facebook/react/raw/master/LICENSE",
         "parents": "KaooApp"
     },
-    "redux-promise@0.6.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/redux-utilities/redux-promise",
-        "licenseUrl": "https://github.com/redux-utilities/redux-promise/raw/master/LICENSE",
-        "parents": "KaooApp"
-    },
     "redux-thunk@2.4.2": {
         "licenses": "MIT",
         "repository": "github:reduxjs/redux-thunk",
         "licenseUrl": "github:reduxjs/redux-thunk",
-        "parents": "KaooApp"
-    },
-    "redux-toolkit@1.1.2": {
-        "licenses": "UNKNOWN",
-        "repository": "https://github.com/yeatszhang/redux-toolkit",
-        "licenseUrl": "https://github.com/yeatszhang/redux-toolkit",
         "parents": "KaooApp"
     },
     "redux@4.2.1": {
@@ -189,12 +171,6 @@
         "licenses": "MIT",
         "repository": "https://github.com/styled-components/styled-components",
         "licenseUrl": "https://github.com/styled-components/styled-components",
-        "parents": "KaooApp"
-    },
-    "url-parse@1.5.10": {
-        "licenses": "MIT",
-        "repository": "https://github.com/unshiftio/url-parse",
-        "licenseUrl": "https://github.com/unshiftio/url-parse/raw/master/LICENSE",
         "parents": "KaooApp"
     },
     "uuid@9.0.0": {
