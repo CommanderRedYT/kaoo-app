@@ -13,8 +13,10 @@ const Tabs = createBottomTabNavigator();
 export default function BottomNavigation() {
     const theme = useTheme();
     const cart = useSelector((state) => state.kaoo.cart);
+    const orderedItems = useSelector((state) => state.kaoo.orderedItems);
 
-    const count = Object.values(cart).length ? Object.values(cart).reduce((a, b) => a + b.count, 0) : undefined;
+    const cartCount = Object.values(cart).length ? Object.values(cart).reduce((a, b) => a + b.count, 0) : undefined;
+    const notReceivedCount = orderedItems.filter((item) => !item.received).length || undefined;
 
     return (
         <Tabs.Navigator
@@ -46,7 +48,7 @@ export default function BottomNavigation() {
                     ),
                     tabBarActiveTintColor: theme.colors.primary,
                     tabBarInactiveTintColor: theme.colors.onSurfaceDisabled,
-                    tabBarBadge: count,
+                    tabBarBadge: cartCount,
                 }}
             />
             <Tabs.Screen
@@ -71,6 +73,7 @@ export default function BottomNavigation() {
                     ),
                     tabBarActiveTintColor: theme.colors.primary,
                     tabBarInactiveTintColor: theme.colors.onSurfaceDisabled,
+                    tabBarBadge: notReceivedCount,
                 }}
             />
             <Tabs.Screen

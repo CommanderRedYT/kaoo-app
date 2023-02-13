@@ -19,6 +19,7 @@ const initialState: KaooState = {
     filter: DisplayFilter.ALL,
     shopInfo: null,
     orderedItems: [],
+    inProgress: false,
 };
 
 const kaooSlice = createSlice({
@@ -90,10 +91,6 @@ const kaooSlice = createSlice({
         addOrderToOrderList: (state, action: PayloadAction<KaooCart>) => {
             const cart = action.payload;
             Object.keys(cart).forEach((productId) => {
-                if (state.orderedItems.find((item) => item.product_id === productId)) {
-                    return;
-                }
-
                 const orderedItem: OrderedItem = {
                     product_id: productId,
                     count: cart[productId].count,
@@ -104,20 +101,16 @@ const kaooSlice = createSlice({
                 state.orderedItems.push(orderedItem);
             });
         },
-        updateOrderItem: (state, action: PayloadAction<OrderedItem>) => {
-            const orderedItem = action.payload;
-            const index = state.orderedItems.findIndex((item) => item.uuid === orderedItem.uuid);
-            if (index >= 0) {
-                state.orderedItems[index] = orderedItem;
-            }
-        },
         toggleOrderItemReceived: (state, action: PayloadAction<OrderedItem>) => {
             const orderedItem = action.payload;
             const index = state.orderedItems.findIndex((item) => item.uuid === orderedItem.uuid);
             if (index >= 0) {
                 state.orderedItems[index].received = !state.orderedItems[index].received;
             }
-        }
+        },
+        setInProgress: (state, action: PayloadAction<boolean>) => {
+            state.inProgress = action.payload;
+        },
     }
 });
 
@@ -216,18 +209,12 @@ export const addOrderToOrderList = (cart: KaooCart): AppThunk => async (dispatch
     dispatch(kaooSlice.actions.addOrderToOrderList(cart));
 };
 
-export const updateOrderItem = (orderedItem: OrderedItem): AppThunk => async (dispatch) => {
-    dispatch(kaooSlice.actions.updateOrderItem(orderedItem));
-};
-
-export const toggleOrderedItemReceived = (orderedItem: OrderedItem): AppThunk => async (dispatch) => {
-    orderedItem.received = !orderedItem.received;
-    console.log(orderedItem.received);
-    dispatch(kaooSlice.actions.updateOrderItem(orderedItem));
-};
-
 export const toggleOrderItemReceived = (orderedItem: OrderedItem): AppThunk => async (dispatch) => {
     dispatch(kaooSlice.actions.toggleOrderItemReceived(orderedItem));
+};
+
+export const updateInProgress = (inProgress: boolean): AppThunk => async (dispatch) => {
+    dispatch(kaooSlice.actions.setInProgress(inProgress));
 };
 
 export const { reducer: KaooReducer } = kaooSlice;

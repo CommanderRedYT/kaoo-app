@@ -3,19 +3,21 @@ import {RNCamera} from "react-native-camera";
 import {Button, Text} from "react-native-paper";
 import {Alert, StyleSheet, TouchableOpacity} from "react-native";
 import {useState} from "react";
+import {getSearchParamFromURL} from "../../utils/generic";
+import {updateTableNum} from "../../slices/kaoo";
+import {useDispatch} from "../../store";
 
 export default function TableNumberScanner() {
+    const dispatch = useDispatch();
     const [flash, setFlash] = useState(false);
 
     const onSuccess = (e: any) => {
-        Alert.alert(
-            'Scan successful!',
-            JSON.stringify(e.data),
-            [
-                { text: 'OK', onPress: () => console.log('OK Pressed') }
-            ],
-            { cancelable: false }
-        );
+        const url = e.data;
+        const table_num = getSearchParamFromURL(url, 'tablenum');
+        console.log(`table_num: ${table_num}`);
+        if (table_num) {
+            dispatch(updateTableNum(table_num));
+        }
     };
 
     return (

@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "../../store";
 import {addIfNotExistsSavedCart} from "../../slices/settings";
 import {generateOrder} from "../../utils/kaoo";
 import {makeOrder} from "../../utils/api";
-import {addOrderedItemToOrderList, addOrderToOrderList, clearCart} from "../../slices/kaoo";
+import {addOrderedItemToOrderList, addOrderToOrderList, clearCart, updateInProgress} from "../../slices/kaoo";
 import {Alert} from "react-native";
 
 export default function CartButtons() {
@@ -16,6 +16,7 @@ export default function CartButtons() {
     const table_num = useSelector((state) => state.kaoo.table_num);
     const shopid = useSelector((state) => state.kaoo.shopid);
     const cartEmpty = Object.values(cart).length === 0;
+    const inProgress = useSelector((state) => state.kaoo.inProgress);
 
     const handleSaveCart = () => {
         if (!cart || cartEmpty)
@@ -29,6 +30,8 @@ export default function CartButtons() {
             return;
         }
 
+        dispatch(updateInProgress(true));
+
         const order = generateOrder(cart, adult, child, table_num, shopid);
         const result = await makeOrder(order);
         console.log('order result', result);
@@ -40,6 +43,8 @@ export default function CartButtons() {
         } else {
             Alert.alert('Order failed', 'Please try again later');
         }
+
+        dispatch(updateInProgress(false));
     };
 
     const total = Object.values(cart).reduce((acc, item) => acc + parseInt(item.good.cost) * item.count, 0);
@@ -68,7 +73,7 @@ export default function CartButtons() {
                     style: {
                         backgroundColor: '#1e8c1e',
                     },
-                    disabled: cartEmpty,
+                    disabled: cartEmpty || inProgress,
                 },
             ]}
             style={{

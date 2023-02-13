@@ -10,8 +10,7 @@ export const getSearchParamFromURL = (url: string, param: string) => {
 
     const params = url.split(/([&,?,=])/);
     const index = params.indexOf(param);
-    const value = params[index + 2];
-    return value;
+    return params[index + 2];
 }
 
 export const rsplit = (str: string, sep: string, maxsplit: number) => {

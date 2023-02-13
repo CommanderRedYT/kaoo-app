@@ -102,4 +102,5 @@ export interface KaooState {
     filter: DisplayFilter;
     shopInfo: ShopInfo | null;
     orderedItems: OrderedItems;
+    inProgress: boolean;
 }

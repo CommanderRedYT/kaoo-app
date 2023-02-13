@@ -1,13 +1,14 @@
 import FastImage from "react-native-fast-image";
-import {Checkbox, List} from "react-native-paper";
+import {Checkbox, List, useTheme} from "react-native-paper";
 import {OrderedItem} from "../../models/kaoo";
 import {useDispatch, useSelector} from "../../store";
 import {toggleOrderItemReceived} from "../../slices/kaoo";
 
 export default function OrderStatusListItem({ orderedItem }: { orderedItem: OrderedItem }) {
+    const theme = useTheme();
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.kaoo.goods);
-    const received = useSelector((state) => state.kaoo.orderedItems.find((item) => item.product_id === orderedItem.product_id)?.received ?? false);
+    const received = useSelector((state) => state.kaoo.orderedItems.find((item) => item.uuid === orderedItem.uuid)?.received ?? false);
 
     const good = categories
         ?.flatMap((category) => category.det)
@@ -31,7 +32,8 @@ export default function OrderStatusListItem({ orderedItem }: { orderedItem: Orde
                         width: 50,
                         height: 50,
                         borderRadius: 15,
-                        marginLeft: 5
+                        marginLeft: 5,
+                        opacity: received ? 0.2 : 1,
                     }}
                     source={{ uri: good.img }}
                 />
@@ -44,10 +46,13 @@ export default function OrderStatusListItem({ orderedItem }: { orderedItem: Orde
             )}
             descriptionStyle={{
                 fontSize: 10,
+                opacity: received ? 0.2 : 1,
             }}
             titleStyle={{
                 fontSize: 20,
+                opacity: received ? 0.2 : 1,
             }}
+            onPress={toggleReceived}
         />
     );
 }
