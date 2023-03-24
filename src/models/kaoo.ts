@@ -95,12 +95,10 @@ export interface KaooState {
     search: string | null;
     cart: KaooCart;
     history: KaooHistory | null;
-    table_num: string | null;
     adult: number;
     child: number;
     shopid: string;
     filter: DisplayFilter;
     shopInfo: ShopInfo | null;
-    orderedItems: OrderedItems;
     inProgress: boolean;
 }

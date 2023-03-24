@@ -1,14 +1,15 @@
-import FastImage from "react-native-fast-image";
-import {Checkbox, List, useTheme} from "react-native-paper";
-import {OrderedItem} from "../../models/kaoo";
-import {useDispatch, useSelector} from "../../store";
-import {toggleOrderItemReceived} from "../../slices/kaoo";
+import FastImage from 'react-native-fast-image';
+import {Checkbox, List, useTheme} from 'react-native-paper';
+import {OrderedItem} from '../../models/kaoo';
+import {useDispatch, useSelector} from '../../store';
+import {toggleOrderItemReceived} from '../../slices/settings';
+import {saveSettings} from "../../utils/settings";
 
 export default function OrderStatusListItem({ orderedItem }: { orderedItem: OrderedItem }) {
     const theme = useTheme();
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.kaoo.goods);
-    const received = useSelector((state) => state.kaoo.orderedItems.find((item) => item.uuid === orderedItem.uuid)?.received ?? false);
+    const received = useSelector((state) => state.settings.orderedItems.find((item) => item.uuid === orderedItem.uuid)?.received ?? false);
 
     const good = categories
         ?.flatMap((category) => category.det)
@@ -20,6 +21,7 @@ export default function OrderStatusListItem({ orderedItem }: { orderedItem: Orde
 
     const toggleReceived = () => {
         dispatch(toggleOrderItemReceived(orderedItem));
+        saveSettings();
     };
 
     return (

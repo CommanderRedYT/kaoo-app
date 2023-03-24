@@ -1,10 +1,9 @@
-import {Dialog, Checkbox, Portal, Text, useTheme} from "react-native-paper";
-import {DisplayFilter, DisplayFilterKeys} from "../../models/kaoo";
-import {Box} from "@react-native-material/core";
-import {updateFilter} from "../../slices/kaoo";
-import {useDispatch, useSelector} from "../../store";
-import {View} from "react-native";
-import {capitalize} from "../../utils/generic";
+import {Dialog, Checkbox, Portal, Text, useTheme} from 'react-native-paper';
+import {DisplayFilter, DisplayFilterKeys} from '../../models/kaoo';
+import {Box} from '@react-native-material/core';
+import {updateFilter} from '../../slices/kaoo';
+import {useDispatch, useSelector} from '../../store';
+import {capitalize} from '../../utils/generic';
 
 export default function FilterDialog({ filterDialogVisible, setFilterDialogVisible }: { filterDialogVisible: boolean, setFilterDialogVisible: (value: boolean) => void }) {
     const theme = useTheme();

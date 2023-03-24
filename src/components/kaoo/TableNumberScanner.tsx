@@ -1,11 +1,12 @@
-import QRCodeScanner from "react-native-qrcode-scanner";
-import {RNCamera} from "react-native-camera";
-import {Button, Text} from "react-native-paper";
-import {Alert, StyleSheet, TouchableOpacity} from "react-native";
-import {useState} from "react";
-import {getSearchParamFromURL} from "../../utils/generic";
-import {updateTableNum} from "../../slices/kaoo";
-import {useDispatch} from "../../store";
+import QRCodeScanner from 'react-native-qrcode-scanner';
+import {RNCamera} from 'react-native-camera';
+import {Button} from 'react-native-paper';
+import {StyleSheet} from 'react-native';
+import {useState} from 'react';
+import {getSearchParamFromURL} from '../../utils/generic';
+import {updateTableNum} from '../../slices/settings';
+import {useDispatch} from '../../store';
+import {saveSettings} from '../../utils/settings';
 
 export default function TableNumberScanner() {
     const dispatch = useDispatch();
@@ -17,6 +18,7 @@ export default function TableNumberScanner() {
         console.log(`table_num: ${table_num}`);
         if (table_num) {
             dispatch(updateTableNum(table_num));
+            saveSettings();
         }
     };
 

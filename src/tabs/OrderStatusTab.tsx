@@ -1,13 +1,13 @@
-import {StyledView, StyledSafeAreaView} from "../style";
-import {Title, useTheme} from "react-native-paper";
-import {Box, Divider} from "@react-native-material/core";
-import OrderStatusList from "../components/kaoo/OrderStatusList";
-import {useSelector} from "../store";
+import {StyledView, StyledSafeAreaView} from '../style';
+import {Title, useTheme} from 'react-native-paper';
+import {Box, Divider} from '@react-native-material/core';
+import OrderStatusList from '../components/kaoo/OrderStatusList';
+import {useSelector} from '../store';
 
-export default function OrderStatusTab({ navigation }: { navigation: any }) {
+export default function OrderStatusTab() {
     const theme = useTheme();
-    const orderedItemsCount = useSelector((state) => state.kaoo.orderedItems.length);
-    const receivedCount = useSelector((state) => state.kaoo.orderedItems.map((item) => item.received).reduce((a, b) => a + (b ? 1 : 0), 0));
+    const orderedItemsCount = useSelector((state) => state.settings.orderedItems.length);
+    const receivedCount = useSelector((state) => state.settings.orderedItems.map((item) => item.received).reduce((a, b) => a + (b ? 1 : 0), 0));
 
     return (
         <StyledSafeAreaView theme={theme}>

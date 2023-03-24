@@ -1,19 +1,19 @@
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import ListTab from "../tabs/ListTab";
-import {useTheme} from "react-native-paper";
-import SettingsTab from "../tabs/SettingsTab";
-import CartTab from "../tabs/CartTab";
-import {useSelector} from "../store";
-import HistoryTab from "../tabs/HistoryTab";
-import OrderStatusTab from "../tabs/OrderStatusTab";
+import ListTab from '../tabs/ListTab';
+import {useTheme} from 'react-native-paper';
+import SettingsTab from '../tabs/SettingsTab';
+import CartTab from '../tabs/CartTab';
+import {useSelector} from '../store';
+import HistoryTab from '../tabs/HistoryTab';
+import OrderStatusTab from '../tabs/OrderStatusTab';
 
 const Tabs = createBottomTabNavigator();
 
 export default function BottomNavigation() {
     const theme = useTheme();
     const cart = useSelector((state) => state.kaoo.cart);
-    const orderedItems = useSelector((state) => state.kaoo.orderedItems);
+    const orderedItems = useSelector((state) => state.settings.orderedItems);
 
     const cartCount = Object.values(cart).length ? Object.values(cart).reduce((a, b) => a + b.count, 0) : undefined;
     const notReceivedCount = orderedItems.filter((item) => !item.received).length || undefined;

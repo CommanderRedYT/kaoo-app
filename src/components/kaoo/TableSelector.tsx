@@ -1,15 +1,17 @@
-import {Button, TextInput, Title} from "react-native-paper";
-import TableNumberScanner from "./TableNumberScanner";
-import {Box} from "@react-native-material/core";
-import {useEffect, useState} from "react";
-import * as api from "../../utils/api";
-import {updateGoods, updateShopInfo, updateTableNum} from "../../slices/kaoo";
-import {useDispatch, useSelector} from "../../store";
+import {Button, TextInput, Title} from 'react-native-paper';
+import TableNumberScanner from './TableNumberScanner';
+import {Box} from '@react-native-material/core';
+import {useEffect, useState} from 'react';
+import * as api from '../../utils/api';
+import {updateGoods, updateShopInfo} from '../../slices/kaoo';
+import {useDispatch, useSelector} from '../../store';
+import {updateTableNum} from '../../slices/settings';
+import {saveSettings} from '../../utils/settings';
 
 export default function TableSelector() {
     const dispatch = useDispatch();
     const shopId = useSelector((state) => state.kaoo.shopid);
-    const table_num = useSelector((state) => state.kaoo.table_num);
+    const table_num = useSelector((state) => state.settings.table_num);
 
     const [useCamera, setUseCamera] = useState<boolean>(false);
     const [change_table, setChangeTable] = useState<string>('');
@@ -36,6 +38,7 @@ export default function TableSelector() {
 
     const handleSaveTableNum = () => {
         dispatch(updateTableNum(change_table));
+        saveSettings();
 
         setUseCamera(false);
 

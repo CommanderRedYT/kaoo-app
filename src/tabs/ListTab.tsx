@@ -1,20 +1,20 @@
-import {View} from "react-native";
-import GoodsList from "../components/kaoo/GoodsList";
-import {Box, Divider} from "@react-native-material/core";
-import {ActivityIndicator, Text, useTheme} from "react-native-paper";
-import {useDispatch, useSelector} from "../store";
-import {StyledView, StyledSafeAreaView} from "../style";
-import ListTabTopBar from "../components/kaoo/ListTabTopBar";
-import TableSelector from "../components/kaoo/TableSelector";
-import {useEffect} from "react";
-import * as api from "../utils/api";
-import {updateGoods, updateShopInfo} from "../slices/kaoo";
+import {View} from 'react-native';
+import GoodsList from '../components/kaoo/GoodsList';
+import {Box, Divider} from '@react-native-material/core';
+import {ActivityIndicator, Text, useTheme} from 'react-native-paper';
+import {useDispatch, useSelector} from '../store';
+import {StyledView, StyledSafeAreaView} from '../style';
+import ListTabTopBar from '../components/kaoo/ListTabTopBar';
+import TableSelector from '../components/kaoo/TableSelector';
+import {useEffect} from 'react';
+import * as api from '../utils/api';
+import {updateGoods, updateShopInfo} from '../slices/kaoo';
 
 export default function ListTab({ navigation }: { navigation: any }) {
     const theme = useTheme();
     const dispatch = useDispatch();
     const goods = useSelector((state) => state.kaoo.goods);
-    const table_num = useSelector((state) => state.kaoo.table_num);
+    const table_num = useSelector((state) => state.settings.table_num);
     const shopId = useSelector((state) => state.kaoo.shopid);
 
     console.log('Rendering ListTab');

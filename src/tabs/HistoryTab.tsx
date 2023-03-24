@@ -1,16 +1,16 @@
-import {View} from "react-native";
-import {StyledView, StyledSafeAreaView} from "../style";
-import {useEffect} from "react";
-import {Title, useTheme} from "react-native-paper";
-import * as api from "../utils/api";
-import {Box, Divider} from "@react-native-material/core";
-import OrderHistoryList from "../components/kaoo/OrderHistoryList";
-import {useDispatch, useSelector} from "../store";
-import {updateHistory} from "../slices/kaoo";
+import {View} from 'react-native';
+import {StyledView, StyledSafeAreaView} from '../style';
+import {useEffect} from 'react';
+import {Title, useTheme} from 'react-native-paper';
+import * as api from '../utils/api';
+import {Box, Divider} from '@react-native-material/core';
+import OrderHistoryList from '../components/kaoo/OrderHistoryList';
+import {useDispatch, useSelector} from '../store';
+import {updateHistory} from '../slices/kaoo';
 
 export default function HistoryTab({ navigation }: { navigation: any }) {
     const dispatch = useDispatch();
-    const table_num = useSelector((state) => state.kaoo.table_num);
+    const table_num = useSelector((state) => state.settings.table_num);
     const shopId = useSelector((state) => state.kaoo.shopid);
     const theme = useTheme();
 

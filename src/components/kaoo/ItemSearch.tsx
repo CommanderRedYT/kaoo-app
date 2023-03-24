@@ -1,6 +1,6 @@
-import {Searchbar} from "react-native-paper";
-import {updateSearch} from "../../slices/kaoo";
-import {useDispatch, useSelector} from "../../store";
+import {Searchbar} from 'react-native-paper';
+import {updateSearch} from '../../slices/kaoo';
+import {useDispatch, useSelector} from '../../store';
 
 export default function ItemSearch() {
     const dispatch = useDispatch();

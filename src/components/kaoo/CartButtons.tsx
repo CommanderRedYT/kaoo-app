@@ -1,10 +1,11 @@
-import {SegmentedButtons, useTheme} from "react-native-paper";
-import {useDispatch, useSelector} from "../../store";
-import {addIfNotExistsSavedCart} from "../../slices/settings";
-import {generateOrder} from "../../utils/kaoo";
-import {makeOrder} from "../../utils/api";
-import {addOrderedItemToOrderList, addOrderToOrderList, clearCart, updateInProgress} from "../../slices/kaoo";
-import {Alert} from "react-native";
+import {SegmentedButtons, useTheme} from 'react-native-paper';
+import {useDispatch, useSelector} from '../../store';
+import {addIfNotExistsSavedCart, addOrderToOrderList} from '../../slices/settings';
+import {generateOrder} from '../../utils/kaoo';
+import {makeOrder} from '../../utils/api';
+import {clearCart, updateInProgress} from '../../slices/kaoo';
+import {Alert} from 'react-native';
+import {saveSettings} from '../../utils/settings';
 
 export default function CartButtons() {
     const theme = useTheme();
@@ -13,7 +14,7 @@ export default function CartButtons() {
     const cart = useSelector((state) => state.kaoo.cart);
     const adult = useSelector((state) => state.kaoo.adult);
     const child = useSelector((state) => state.kaoo.child);
-    const table_num = useSelector((state) => state.kaoo.table_num);
+    const table_num = useSelector((state) => state.settings.table_num);
     const shopid = useSelector((state) => state.kaoo.shopid);
     const cartEmpty = Object.values(cart).length === 0;
     const inProgress = useSelector((state) => state.kaoo.inProgress);
@@ -23,6 +24,8 @@ export default function CartButtons() {
             return;
 
         dispatch(addIfNotExistsSavedCart(cart));
+        console.log('saved cart', JSON.stringify(cart));
+        saveSettings();
     };
 
     const handleCheckout = async () => {
@@ -40,6 +43,7 @@ export default function CartButtons() {
         if (result) {
             Alert.alert('Order placed', result.msg);
             dispatch(addOrderToOrderList(cart));
+            saveSettings();
         } else {
             Alert.alert('Order failed', 'Please try again later');
         }

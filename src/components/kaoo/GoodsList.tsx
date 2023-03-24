@@ -1,10 +1,10 @@
-import {useSelector} from "../../store";
-import {SectionList} from "react-native";
-import Good from "./GoodItem";
-import {useTheme, Text} from "react-native-paper";
-import {Box} from "@react-native-material/core";
-import FastImage from "react-native-fast-image";
-import {DisplayFilter} from "../../models/kaoo";
+import {useSelector} from '../../store';
+import {SectionList} from 'react-native';
+import Good from './GoodItem';
+import {useTheme, Text} from 'react-native-paper';
+import {Box} from '@react-native-material/core';
+import FastImage from 'react-native-fast-image';
+import {DisplayFilter} from '../../models/kaoo';
 
 export default function GoodsList() {
     const theme = useTheme();
@@ -17,7 +17,7 @@ export default function GoodsList() {
         return null;
     }
 
-    let sections = categories
+    const sections = categories
         ?.map((category) => ({
             ...category,
             data:

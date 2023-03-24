@@ -1,28 +1,34 @@
-import {View} from "react-native";
-import {Box} from "@react-native-material/core";
-import {Divider, Text, useTheme, Switch, Title, Button, TextInput} from "react-native-paper";
-import {useDispatch, useSelector} from "../store";
-import {StyledScrollView, StyledSafeAreaView} from "../style";
-import {clearSavedCarts, updateFavorites, updateUseDarkMode} from "../slices/settings";
-import {saveSettings} from "../utils/settings";
-import {updateAdult, updateChild, updateHistory, updateShopId, updateTableNum} from "../slices/kaoo";
-import {FlatList, Linking} from "react-native";
-import {rsplit} from "../utils/generic";
-import licenses from "../../licenses.json";
-import FastImage from "react-native-fast-image";
+import {Box} from '@react-native-material/core';
+import {Divider, Text, useTheme, Switch, Title, Button, TextInput} from 'react-native-paper';
+import {useDispatch, useSelector} from '../store';
+import {StyledScrollView, StyledSafeAreaView} from '../style';
+import {
+    clearSavedCarts,
+    updateFavorites,
+    updateOrderedItems,
+    updateTableNum,
+    updateUseDarkMode
+} from '../slices/settings';
+import {saveSettings} from '../utils/settings';
+import {updateAdult, updateChild, updateHistory, updateShopId} from '../slices/kaoo';
+import {FlatList, Linking} from 'react-native';
+import {rsplit} from '../utils/generic';
+import licenses from '../../licenses.json';
+import FastImage from 'react-native-fast-image';
 
-export default function SettingsTab({ navigation }: { navigation: any }) {
+export default function SettingsTab() {
     const theme = useTheme();
     const dispatch = useDispatch();
 
     const useDarkMode = useSelector((state) => state.settings.useDarkMode);
-    const table_num = useSelector((state) => state.kaoo.table_num);
+    const table_num = useSelector((state) => state.settings.table_num);
     const favorites = useSelector((state) => state.settings.favorites);
     const shopid = useSelector((state) => state.kaoo.shopid);
     const adult = useSelector((state) => state.kaoo.adult);
     const child = useSelector((state) => state.kaoo.child);
     const shopInfo = useSelector((state) => state.kaoo.shopInfo);
     const savedCarts = useSelector((state) => state.settings.saved_carts);
+    const orderedItems = useSelector((state) => state.settings.orderedItems.length > 0);
 
     const dispatchWithSave = (action: any) => {
         dispatch(action);
@@ -32,10 +38,15 @@ export default function SettingsTab({ navigation }: { navigation: any }) {
     const clearTableNumber = () => {
         dispatch(updateTableNum(null));
         dispatch(updateHistory(null));
+        saveSettings();
     };
 
     const clear_saved_carts = () => {
         dispatchWithSave(clearSavedCarts());
+    };
+
+    const clear_order_status = () => {
+        dispatchWithSave(updateOrderedItems([]));
     };
 
     const clearFavorites = () => {
@@ -47,7 +58,7 @@ export default function SettingsTab({ navigation }: { navigation: any }) {
         return {
             name: parts[0],
             version: parts[1]
-        }
+        };
     };
 
     const licenseList = Object.keys(licenses).map((key) => {
@@ -56,7 +67,7 @@ export default function SettingsTab({ navigation }: { navigation: any }) {
             name,
             version,
             license: licenses[key as keyof typeof licenses]
-        }
+        };
     });
 
     return (
@@ -109,6 +120,20 @@ export default function SettingsTab({ navigation }: { navigation: any }) {
                             disabled={!savedCarts.length}
                             buttonColor={'#f44336'}
                             textColor={'#fff'}
+                        >
+                            Clear
+                        </Button>
+                    </Box>
+                    <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
+                        <Text>
+                            Clear Order Status
+                        </Text>
+                        <Button
+                            onPress={clear_order_status}
+                            mode="contained"
+                            buttonColor={'#f44336'}
+                            textColor={'#fff'}
+                            disabled={!orderedItems}
                         >
                             Clear
                         </Button>

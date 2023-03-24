@@ -1,19 +1,19 @@
-import {RefreshControl, SectionList} from "react-native";
-import {useDispatch, useSelector} from "../../store";
-import {KaooHistoryItem} from "../../models/kaoo";
-import {useState} from "react";
-import {ActivityIndicator, Divider, Title} from "react-native-paper";
-import OrderHistorySectionHeader from "./OrderHistorySectionHeader";
-import OrderHistoryItemList from "./OrderHistoryItemList";
-import * as api from "../../utils/api";
-import {updateHistory} from "../../slices/kaoo";
-import {Box} from "@react-native-material/core";
+import {RefreshControl, SectionList} from 'react-native';
+import {useDispatch, useSelector} from '../../store';
+import {KaooHistoryItem} from '../../models/kaoo';
+import {useState} from 'react';
+import {ActivityIndicator, Divider, Title} from 'react-native-paper';
+import OrderHistorySectionHeader from './OrderHistorySectionHeader';
+import OrderHistoryItemList from './OrderHistoryItemList';
+import * as api from '../../utils/api';
+import {updateHistory} from '../../slices/kaoo';
+import {Box} from '@react-native-material/core';
 
 export default function OrderHistoryList() {
     const dispatch = useDispatch();
     const [refreshing, setRefreshing] = useState(false);
     const history = useSelector((state) => state.kaoo.history);
-    const table_num = useSelector((state) => state.kaoo.table_num);
+    const table_num = useSelector((state) => state.settings.table_num);
     const shopId = useSelector((state) => state.kaoo.shopid);
 
     const sections = history?.map((historyItem: KaooHistoryItem) => ({
@@ -62,7 +62,7 @@ export default function OrderHistoryList() {
                             }
                             renderSectionHeader={({ section }) => <OrderHistorySectionHeader historyItem={section} />}
                             renderSectionFooter={({ section }) => <Divider style={{height: 1}} />}
-                                refreshControl={
+                            refreshControl={
                                 <RefreshControl
                                     refreshing={refreshing}
                                     onRefresh={refresh}
