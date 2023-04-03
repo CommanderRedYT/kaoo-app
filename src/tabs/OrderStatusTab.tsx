@@ -40,7 +40,7 @@ export default function OrderStatusTab() {
                         <Button
                             mode="contained"
                             onPress={orderFinished}
-                            disabled={receivedCount !== orderedItemsCount}
+                            disabled={receivedCount !== orderedItemsCount || orderedItemsCount === 0}
                         >
                         Order Finished
                         </Button>

@@ -7,7 +7,8 @@ import {
     updateFavorites,
     updateOrderedItems,
     updateTableNum,
-    updateUseDarkMode
+    updateUseDarkMode,
+    updateAppOrderHistory,
 } from '../slices/settings';
 import {saveSettings} from '../utils/settings';
 import {updateAdult, updateChild, updateHistory, updateShopId} from '../slices/kaoo';
@@ -29,6 +30,7 @@ export default function SettingsTab() {
     const shopInfo = useSelector((state) => state.kaoo.shopInfo);
     const savedCarts = useSelector((state) => state.settings.saved_carts);
     const orderedItems = useSelector((state) => state.settings.orderedItems.length > 0);
+    const appOrderHistory = useSelector((state) => state.settings.appOrderHistory.length > 0);
 
     const dispatchWithSave = (action: any) => {
         dispatch(action);
@@ -51,6 +53,10 @@ export default function SettingsTab() {
 
     const clearFavorites = () => {
         dispatchWithSave(updateFavorites([]));
+    };
+
+    const clearAppOrderHistory = () => {
+        dispatchWithSave(updateAppOrderHistory([]));
     };
 
     const modifyName = (name: string) => {
@@ -134,6 +140,20 @@ export default function SettingsTab() {
                             buttonColor={'#f44336'}
                             textColor={'#fff'}
                             disabled={!orderedItems}
+                        >
+                            Clear
+                        </Button>
+                    </Box>
+                    <Box style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', padding: 10, alignItems: 'center'}}>
+                        <Text>
+                            Clear App Order History
+                        </Text>
+                        <Button
+                            onPress={clearAppOrderHistory}
+                            mode="contained"
+                            buttonColor={'#f44336'}
+                            textColor={'#fff'}
+                            disabled={!appOrderHistory}
                         >
                             Clear
                         </Button>

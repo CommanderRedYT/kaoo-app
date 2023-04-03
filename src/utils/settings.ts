@@ -28,6 +28,7 @@ export function loadSettings() {
             const { useDarkMode, favorites, saved_carts, orderedItems, table_num, appOrderHistory } = JSON.parse(settings);
             store.dispatch(updateUseDarkMode(useDarkMode ?? defaultSettings.useDarkMode));
             console.log('favorites', favorites);
+            console.log('appOrderHistory', appOrderHistory);
             store.dispatch(updateFavorites(favorites ?? defaultSettings.favorites));
             store.dispatch(updateSettingsLoaded(true));
             store.dispatch(updateSavedCarts(saved_carts ?? defaultSettings.saved_carts));
