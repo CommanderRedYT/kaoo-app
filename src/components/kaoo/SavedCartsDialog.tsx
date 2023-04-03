@@ -34,7 +34,7 @@ export default function SavedCartsDialog({ dialogVisible, setDialogVisible }: { 
                         {savedCarts.map((cart, index) => (
                             <>
                                 {Object.entries(cart).map(([key, value]) => (
-                                    <Text key={key}>{`${key}. ${value.count}× ${value.good.name}`}</Text>
+                                    <Text key={key}>{`${value.count}× ${key}. ${value.good.name}`}</Text>
                                 ))}
                                 <Box key={index}>
                                     <Button
