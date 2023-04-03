@@ -34,9 +34,9 @@ export default function SavedCartsDialog({ dialogVisible, setDialogVisible }: { 
                         {savedCarts.map((cart, index) => (
                             <>
                                 {Object.entries(cart).map(([key, value]) => (
-                                    <Text key={key}>{`${value.count}× ${key}. ${value.good.name}`}</Text>
+                                    <Text key={`text_${index}_${key}`}>{`${value.count}× ${key}. ${value.good.name}`}</Text>
                                 ))}
-                                <Box key={index}>
+                                <Box key={`box_${index}`}>
                                     <Button
                                         mode="contained"
                                         onPress={() => applyCart(cart)}
@@ -54,7 +54,7 @@ export default function SavedCartsDialog({ dialogVisible, setDialogVisible }: { 
                                         Delete
                                     </Button>
                                 </Box>
-                                <Divider style={{ marginVertical: 10, backgroundColor: theme.colors.onSurface }} />
+                                <Divider style={{ marginVertical: 10, backgroundColor: theme.colors.onSurface }} key={`divider_${index}`} />
                             </>
                         ))}
                     </Dialog.Content>
