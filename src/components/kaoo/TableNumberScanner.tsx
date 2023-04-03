@@ -4,7 +4,7 @@ import {Button} from 'react-native-paper';
 import {StyleSheet} from 'react-native';
 import {useState} from 'react';
 import {getSearchParamFromURL} from '../../utils/generic';
-import {updateTableNum} from '../../slices/settings';
+import {updateOrderedItems, updateTableNum} from '../../slices/settings';
 import {useDispatch} from '../../store';
 import {saveSettings} from '../../utils/settings';
 
@@ -17,6 +17,7 @@ export default function TableNumberScanner() {
         const table_num = getSearchParamFromURL(url, 'tablenum');
         console.log(`table_num: ${table_num}`);
         if (table_num) {
+            dispatch(updateOrderedItems([]));
             dispatch(updateTableNum(table_num));
             saveSettings();
         }

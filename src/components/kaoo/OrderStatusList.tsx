@@ -17,7 +17,7 @@ export default function OrderStatusList() {
 
     return (
         <>
-            {orderedItems ? (
+            {orderedItems.length > 0 ? (
                 <SectionList
                     sections={sections ?? []}
                     renderItem={

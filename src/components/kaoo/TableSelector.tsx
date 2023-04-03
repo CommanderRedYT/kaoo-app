@@ -5,7 +5,7 @@ import {useEffect, useState} from 'react';
 import * as api from '../../utils/api';
 import {updateGoods, updateShopInfo} from '../../slices/kaoo';
 import {useDispatch, useSelector} from '../../store';
-import {updateTableNum} from '../../slices/settings';
+import {updateOrderedItems, updateTableNum} from '../../slices/settings';
 import {saveSettings} from '../../utils/settings';
 
 export default function TableSelector() {
@@ -37,6 +37,7 @@ export default function TableSelector() {
     }, [table_num]);
 
     const handleSaveTableNum = () => {
+        dispatch(updateOrderedItems([]));
         dispatch(updateTableNum(change_table));
         saveSettings();
 
