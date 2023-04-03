@@ -84,6 +84,7 @@ export interface ShopInfo {
 export interface OrderedItem {
     product_id: string;
     count: number;
+    cost: number;
     received: boolean;
     uuid: string;
 }

@@ -5,7 +5,7 @@ import {
     updateUseDarkMode,
     updateFavorites,
     updateSavedCarts,
-    updateTableNum
+    updateTableNum, updateAppOrderHistory
 } from '../slices/settings';
 import {SettingsState} from '../models/settings';
 import {Appearance} from 'react-native';
@@ -18,13 +18,14 @@ const defaultSettings: SettingsState = {
     saved_carts: [],
     table_num: null,
     orderedItems: [],
+    appOrderHistory: [],
 };
 
 export function loadSettings() {
     AsyncStorage.getItem('settings').then((settings) => {
         console.log('settings', settings, !!settings);
         if (settings) {
-            const { useDarkMode, favorites, saved_carts, orderedItems, table_num } = JSON.parse(settings);
+            const { useDarkMode, favorites, saved_carts, orderedItems, table_num, appOrderHistory } = JSON.parse(settings);
             store.dispatch(updateUseDarkMode(useDarkMode ?? defaultSettings.useDarkMode));
             console.log('favorites', favorites);
             store.dispatch(updateFavorites(favorites ?? defaultSettings.favorites));
@@ -32,6 +33,7 @@ export function loadSettings() {
             store.dispatch(updateSavedCarts(saved_carts ?? defaultSettings.saved_carts));
             store.dispatch(updateOrderedItems(orderedItems ?? []));
             store.dispatch(updateTableNum(table_num ?? null));
+            store.dispatch(updateAppOrderHistory(appOrderHistory ?? []));
         } else {
             store.dispatch(updateUseDarkMode(defaultSettings.useDarkMode));
             store.dispatch(updateFavorites(defaultSettings.favorites));
@@ -39,6 +41,7 @@ export function loadSettings() {
             store.dispatch(updateSavedCarts(defaultSettings.saved_carts));
             store.dispatch(updateOrderedItems([]));
             store.dispatch(updateTableNum(null));
+            store.dispatch(updateAppOrderHistory([]));
             saveSettings();
         }
     });

@@ -51,7 +51,7 @@ export default function CartButtons() {
         dispatch(updateInProgress(false));
     };
 
-    const total = Object.values(cart).reduce((acc, item) => acc + parseInt(item.good.cost) * item.count, 0);
+    const total = Object.values(cart).reduce((acc, item) => acc + parseFloat(item.good.cost) * item.count, 0);
     const count = Object.values(cart).reduce((acc, item) => acc + item.count, 0);
 
     return (

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import type { AppThunk } from '../store';
-import type { SettingsState } from '../models/settings';
+import type {AppOrderHistoryItem, SettingsState} from '../models/settings';
 import {KaooCart, OrderedItem} from '../models/kaoo';
 import {v4 as uuidv4} from 'uuid';
 
@@ -13,6 +13,7 @@ const initialState: SettingsState = {
     saved_carts: [],
     table_num: null,
     orderedItems: [],
+    appOrderHistory: [],
 };
 
 const settingsSlice = createSlice({
@@ -93,6 +94,7 @@ const settingsSlice = createSlice({
                     product_id: productId,
                     count: cart[productId].count,
                     received: false,
+                    cost: parseFloat(cart[productId].good.cost),
                     uuid: uuidv4(),
                 };
 
@@ -105,6 +107,19 @@ const settingsSlice = createSlice({
             if (index >= 0) {
                 state.orderedItems[index].received = !state.orderedItems[index].received;
             }
+        },
+        setAppOrderHistory: (state, action: PayloadAction<SettingsState['appOrderHistory']>) => {
+            state.appOrderHistory = action.payload;
+        },
+        addAppOrderHistory: (state) => {
+            const item: AppOrderHistoryItem = {
+                orderedItems: state.orderedItems,
+                date: new Date().toISOString(),
+                totalCost: state.orderedItems.reduce((acc, item) => acc + item.count * item.cost, 0),
+            };
+
+            state.appOrderHistory.push(item);
+            state.orderedItems = [];
         },
     }
 });
@@ -171,6 +186,14 @@ export const addOrderToOrderList = (cart: KaooCart): AppThunk => async (dispatch
 
 export const toggleOrderItemReceived = (orderedItem: OrderedItem): AppThunk => async (dispatch) => {
     dispatch(settingsSlice.actions.toggleOrderItemReceived(orderedItem));
+};
+
+export const updateAppOrderHistory = (appOrderHistory: SettingsState['appOrderHistory']): AppThunk => async (dispatch) => {
+    dispatch(settingsSlice.actions.setAppOrderHistory(appOrderHistory));
+};
+
+export const addAppOrderHistory = (): AppThunk => async (dispatch) => {
+    dispatch(settingsSlice.actions.addAppOrderHistory());
 };
 
 export const { reducer: SettingsReducer } = settingsSlice;
