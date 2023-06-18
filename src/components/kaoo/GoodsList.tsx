@@ -3,7 +3,6 @@ import {SectionList} from 'react-native';
 import Good from './GoodItem';
 import {useTheme, Text} from 'react-native-paper';
 import {Box} from '@react-native-material/core';
-import FastImage from 'react-native-fast-image';
 import {DisplayFilter} from '../../models/kaoo';
 
 export default function GoodsList() {
@@ -42,35 +41,6 @@ export default function GoodsList() {
             {sections.length === 0 ? (
                 <Box style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>No results. Try another search!</Text>
-                    {
-                        search && search.toLowerCase() === 'oida' && (
-                            <>
-                                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Oida!</Text>
-                                <FastImage
-                                    style={{ width: 400, height: 300 }}
-                                    source={{
-                                        uri: 'https://commanderred.xyz/assets/oida.png',
-                                        priority: FastImage.priority.normal,
-                                    }}
-                                    resizeMode={FastImage.resizeMode.contain}
-                                />
-                            </>
-                        )
-                    }
-                    {
-                        search && search.toLowerCase() === '42' && (
-                            <>
-                                <FastImage
-                                    style={{ width: 400, height: 300 }}
-                                    source={{
-                                        uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Answer_to_Life.png/220px-Answer_to_Life.png',
-                                        priority: FastImage.priority.normal,
-                                    }}
-                                    resizeMode={FastImage.resizeMode.contain}
-                                />
-                            </>
-                        )
-                    }
                 </Box>
             ) : (
                 <SectionList
