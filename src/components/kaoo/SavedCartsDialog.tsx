@@ -5,6 +5,7 @@ import {KaooCart} from '../../models/kaoo';
 import {updateCart} from '../../slices/kaoo';
 import {Box} from '@react-native-material/core';
 import {removeSavedCart} from '../../slices/settings';
+import {Fragment} from 'react';
 
 export default function SavedCartsDialog({ dialogVisible, setDialogVisible }: { dialogVisible: boolean, setDialogVisible: (value: boolean) => void }) {
     const theme = useTheme();
@@ -32,11 +33,11 @@ export default function SavedCartsDialog({ dialogVisible, setDialogVisible }: { 
                 <ScrollView>
                     <Dialog.Content>
                         {savedCarts.map((cart, index) => (
-                            <>
+                            <Fragment key={`fragment_${index}`}>
                                 {Object.entries(cart).map(([key, value]) => (
                                     <Text key={`text_${index}_${key}`}>{`${value.count}× ${key}. ${value.good.name}`}</Text>
                                 ))}
-                                <Box key={`box_${index}`}>
+                                <Box>
                                     <Button
                                         mode="contained"
                                         onPress={() => applyCart(cart)}
@@ -54,8 +55,8 @@ export default function SavedCartsDialog({ dialogVisible, setDialogVisible }: { 
                                         Delete
                                     </Button>
                                 </Box>
-                                <Divider style={{ marginVertical: 10, backgroundColor: theme.colors.onSurface }} key={`divider_${index}`} />
-                            </>
+                                <Divider style={{ marginVertical: 10, backgroundColor: theme.colors.onSurface }} />
+                            </Fragment>
                         ))}
                     </Dialog.Content>
                 </ScrollView>
