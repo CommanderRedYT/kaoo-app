@@ -1,10 +1,9 @@
-import type {PayloadAction} from '@reduxjs/toolkit';
-import {createSlice} from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-import type {AppThunk} from '../store';
-import type {CartItem, KaooState} from '../models/kaoo';
-import {DisplayFilter, Good} from '../models/kaoo';
-import 'react-native-get-random-values';
+import type { AppThunk } from '@src/store';
+import type { CartItem, KaooState, Good } from '@src/models/kaoo';
+import { DisplayFilter } from '@src/models/kaoo';
 
 const initialState: KaooState = {
     goods: null,
@@ -55,7 +54,7 @@ const kaooSlice = createSlice({
                 delete state.cart[productId];
             }
         },
-        clearCart: (state) => {
+        clearCart: state => {
             state.cart = {};
         },
         setHistory: (state, action: PayloadAction<KaooState['history']>) => {
@@ -79,91 +78,121 @@ const kaooSlice = createSlice({
         setInProgress: (state, action: PayloadAction<boolean>) => {
             state.inProgress = action.payload;
         },
-    }
+    },
 });
 
-export const updateGoods = (goods: KaooState['goods']): AppThunk => async (dispatch) => {
-    dispatch(kaooSlice.actions.setGoods(goods));
-};
+export const updateGoods =
+    (goods: KaooState['goods']): AppThunk =>
+    async dispatch => {
+        dispatch(kaooSlice.actions.setGoods(goods));
+    };
 
-export const updateSearch = (search: KaooState['search']): AppThunk => async (dispatch) => {
-    dispatch(kaooSlice.actions.setSearch(search));
-};
+export const updateSearch =
+    (search: KaooState['search']): AppThunk =>
+    async dispatch => {
+        dispatch(kaooSlice.actions.setSearch(search));
+    };
 
-export const updateCart = (cart: KaooState['cart']): AppThunk => async (dispatch) => {
-    dispatch(kaooSlice.actions.setCart(cart));
-};
+export const updateCart =
+    (cart: KaooState['cart']): AppThunk =>
+    async dispatch => {
+        dispatch(kaooSlice.actions.setCart(cart));
+    };
 
-export const addGoodToCart = (good: Good): AppThunk => async (dispatch) => {
-    dispatch(kaooSlice.actions.addToCart({good, count: 1}));
-};
+export const addGoodToCart =
+    (good: Good): AppThunk =>
+    async dispatch => {
+        dispatch(kaooSlice.actions.addToCart({ good, count: 1 }));
+    };
 
-export const removeGoodFromCart = (good: Good): AppThunk => async (dispatch) => {
-    dispatch(kaooSlice.actions.removeFromCart({good, count: 1}));
-};
+export const removeGoodFromCart =
+    (good: Good): AppThunk =>
+    async dispatch => {
+        dispatch(kaooSlice.actions.removeFromCart({ good, count: 1 }));
+    };
 
-export const deleteGoodFromCart = (good: Good): AppThunk => async (dispatch) => {
-    dispatch(kaooSlice.actions.deleteFromCart({good, count: 1}));
-};
+export const deleteGoodFromCart =
+    (good: Good): AppThunk =>
+    async dispatch => {
+        dispatch(kaooSlice.actions.deleteFromCart({ good, count: 1 }));
+    };
 
-export const clearCart = (): AppThunk => async (dispatch) => {
+export const clearCart = (): AppThunk => async dispatch => {
     dispatch(kaooSlice.actions.clearCart());
 };
 
-export const updateHistory = (history: KaooState['history']): AppThunk => async (dispatch) => {
-    dispatch(kaooSlice.actions.setHistory(history));
-};
+export const updateHistory =
+    (history: KaooState['history']): AppThunk =>
+    async dispatch => {
+        dispatch(kaooSlice.actions.setHistory(history));
+    };
 
-export const updateAdult = (adult: KaooState['adult']): AppThunk => async (dispatch) => {
-    dispatch(kaooSlice.actions.setAdult(adult));
-};
+export const updateAdult =
+    (adult: KaooState['adult']): AppThunk =>
+    async dispatch => {
+        dispatch(kaooSlice.actions.setAdult(adult));
+    };
 
-export const updateChild = (child: KaooState['child']): AppThunk => async (dispatch) => {
-    dispatch(kaooSlice.actions.setChild(child));
-};
+export const updateChild =
+    (child: KaooState['child']): AppThunk =>
+    async dispatch => {
+        dispatch(kaooSlice.actions.setChild(child));
+    };
 
-export const updateShopId = (shopId: KaooState['shopid']): AppThunk => async (dispatch) => {
-    dispatch(kaooSlice.actions.setShopId(shopId));
-};
+export const updateShopId =
+    (shopId: KaooState['shopid']): AppThunk =>
+    async dispatch => {
+        dispatch(kaooSlice.actions.setShopId(shopId));
+    };
 
-export const updateFilter = (filter: DisplayFilter): AppThunk => async (dispatch) => {
-    dispatch(kaooSlice.actions.setFilter(filter));
-};
+export const updateFilter =
+    (filter: DisplayFilter): AppThunk =>
+    async dispatch => {
+        dispatch(kaooSlice.actions.setFilter(filter));
+    };
 
-export const addGoodToCartByProductId = (productId: string): AppThunk => async (dispatch, getState) => {
-    const response = getState().kaoo.goods;
-    if (response) {
-        const good = response
-            .flatMap((category) => category.det)
-            .find((good) => good.product_id === productId);
-        if (good) {
-            dispatch(kaooSlice.actions.addToCart({good, count: 1}));
-        }
-    }
-};
-
-export const addGoodToCartByProductIdIfNotExist = (productId: string): AppThunk => async (dispatch, getState) => {
-    const response = getState().kaoo.goods;
-    if (response) {
-        const good = response
-            .flatMap((category) => category.det)
-            .find((good) => good.product_id === productId);
-        if (good) {
-            const cart = getState().kaoo.cart;
-            if (!cart[productId]) {
-                dispatch(kaooSlice.actions.addToCart({good, count: 1}));
+export const addGoodToCartByProductId =
+    (productId: string): AppThunk =>
+    async (dispatch, getState) => {
+        const response = getState().kaoo.goods;
+        if (response) {
+            const good = response
+                .flatMap(category => category.det)
+                .find(good => good.product_id === productId);
+            if (good) {
+                dispatch(kaooSlice.actions.addToCart({ good, count: 1 }));
             }
         }
-    }
-};
+    };
 
-export const updateShopInfo = (shopInfo: KaooState['shopInfo']): AppThunk => async (dispatch) => {
-    dispatch(kaooSlice.actions.setShopInfo(shopInfo));
-};
+export const addGoodToCartByProductIdIfNotExist =
+    (productId: string): AppThunk =>
+    async (dispatch, getState) => {
+        const response = getState().kaoo.goods;
+        if (response) {
+            const good = response
+                .flatMap(category => category.det)
+                .find(good => good.product_id === productId);
+            if (good) {
+                const cart = getState().kaoo.cart;
+                if (!cart[productId]) {
+                    dispatch(kaooSlice.actions.addToCart({ good, count: 1 }));
+                }
+            }
+        }
+    };
 
-export const updateInProgress = (inProgress: boolean): AppThunk => async (dispatch) => {
-    dispatch(kaooSlice.actions.setInProgress(inProgress));
-};
+export const updateShopInfo =
+    (shopInfo: KaooState['shopInfo']): AppThunk =>
+    async dispatch => {
+        dispatch(kaooSlice.actions.setShopInfo(shopInfo));
+    };
+
+export const updateInProgress =
+    (inProgress: boolean): AppThunk =>
+    async dispatch => {
+        dispatch(kaooSlice.actions.setInProgress(inProgress));
+    };
 
 export const { reducer: KaooReducer } = kaooSlice;
 

@@ -14,8 +14,6 @@ export interface GoodsResponseItem {
 
 export type GoodsResponse = GoodsResponseItem[];
 
-export type GoodCategory = GoodsResponseItem;
-
 export type Good = GoodsResponseDetailsItem;
 
 export interface CartItem {
@@ -76,7 +74,7 @@ export interface ShopInfo {
     intervaltime: string;
     shopname: string;
     shoplogo: string;
-    phone:  string;
+    phone: string;
     address: string;
     email: string;
 }

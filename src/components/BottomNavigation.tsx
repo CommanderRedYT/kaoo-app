@@ -1,22 +1,25 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import ListTab from '../tabs/ListTab';
-import {useTheme} from 'react-native-paper';
-import SettingsTab from '../tabs/SettingsTab';
-import CartTab from '../tabs/CartTab';
-import {useSelector} from '../store';
-import HistoryTab from '../tabs/HistoryTab';
-import OrderStatusTab from '../tabs/OrderStatusTab';
+import ListTab from '@src/tabs/ListTab';
+import { useTheme } from 'react-native-paper';
+import SettingsTab from '@src/tabs/SettingsTab';
+import CartTab from '@src/tabs/CartTab';
+import { useSelector } from '@src/store';
+import HistoryTab from '@src/tabs/HistoryTab';
+import OrderStatusTab from '@src/tabs/OrderStatusTab';
 
 const Tabs = createBottomTabNavigator();
 
 export default function BottomNavigation() {
     const theme = useTheme();
-    const cart = useSelector((state) => state.kaoo.cart);
-    const orderedItems = useSelector((state) => state.settings.orderedItems);
+    const cart = useSelector(state => state.kaoo.cart);
+    const orderedItems = useSelector(state => state.settings.orderedItems);
 
-    const cartCount = Object.values(cart).length ? Object.values(cart).reduce((a, b) => a + b.count, 0) : undefined;
-    const notReceivedCount = orderedItems.filter((item) => !item.received).length || undefined;
+    const cartCount = Object.values(cart).length
+        ? Object.values(cart).reduce((a, b) => a + b.count, 0)
+        : undefined;
+    const notReceivedCount =
+        orderedItems.filter(item => !item.received).length || undefined;
 
     return (
         <Tabs.Navigator
@@ -24,15 +27,18 @@ export default function BottomNavigation() {
             screenOptions={{
                 headerShown: false,
                 lazy: true,
-            }}
-        >
+            }}>
             <Tabs.Screen
                 name="ListTab"
                 component={ListTab}
                 options={{
                     tabBarLabel: 'Order',
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="restaurant-outline" color={color} size={size} />
+                        <Ionicons
+                            name="restaurant-outline"
+                            color={color}
+                            size={size}
+                        />
                     ),
                     tabBarActiveTintColor: theme.colors.primary,
                     tabBarInactiveTintColor: theme.colors.onSurfaceDisabled,
@@ -44,7 +50,11 @@ export default function BottomNavigation() {
                 options={{
                     tabBarLabel: 'Cart',
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="cart-outline" color={color} size={size} />
+                        <Ionicons
+                            name="cart-outline"
+                            color={color}
+                            size={size}
+                        />
                     ),
                     tabBarActiveTintColor: theme.colors.primary,
                     tabBarInactiveTintColor: theme.colors.onSurfaceDisabled,
@@ -68,8 +78,12 @@ export default function BottomNavigation() {
                 component={OrderStatusTab}
                 options={{
                     tabBarLabel: 'Status',
-                    tabBarIcon: ({color, size}) => (
-                        <Ionicons name="information" color={color} size={size}/>
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons
+                            name="information"
+                            color={color}
+                            size={size}
+                        />
                     ),
                     tabBarActiveTintColor: theme.colors.primary,
                     tabBarInactiveTintColor: theme.colors.onSurfaceDisabled,
@@ -82,7 +96,11 @@ export default function BottomNavigation() {
                 options={{
                     tabBarLabel: 'Settings',
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="settings-outline" color={color} size={size} />
+                        <Ionicons
+                            name="settings-outline"
+                            color={color}
+                            size={size}
+                        />
                     ),
                     tabBarActiveTintColor: theme.colors.primary,
                     tabBarInactiveTintColor: theme.colors.onSurfaceDisabled,

@@ -1,7 +1,11 @@
-import {KaooHistoryItem, KaooHistoryItemDetailsItem} from "../../models/kaoo";
-import OrderHistoryItem from "./OrderHistoryItem";
+import type { KaooHistoryItem, KaooHistoryItemDetailsItem } from '@src/models/kaoo';
+import OrderHistoryItem from './OrderHistoryItem';
 
-export default function OrderHistoryItemList({ item } : { item: KaooHistoryItem }) {
+export default function OrderHistoryItemList({
+    item,
+}: {
+    item: KaooHistoryItem;
+}) {
     const { det } = item;
 
     return (

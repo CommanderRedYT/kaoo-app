@@ -1,20 +1,20 @@
-import {RefreshControl, SectionList} from 'react-native';
-import {useDispatch, useSelector} from '../../store';
-import {KaooHistoryItem} from '../../models/kaoo';
-import {useState} from 'react';
-import {ActivityIndicator, Divider, Title} from 'react-native-paper';
+import { RefreshControl, SectionList } from 'react-native';
+import { useDispatch, useSelector } from '@src/store';
+import type { KaooHistoryItem } from '@src/models/kaoo';
+import { useState } from 'react';
+import { ActivityIndicator, Divider, Title } from 'react-native-paper';
 import OrderHistorySectionHeader from './OrderHistorySectionHeader';
 import OrderHistoryItemList from './OrderHistoryItemList';
-import * as api from '../../utils/api';
-import {updateHistory} from '../../slices/kaoo';
-import {Box} from '@react-native-material/core';
+import * as api from '@src/utils/api';
+import { updateHistory } from '@src/slices/kaoo';
+import { Box } from '@react-native-material/core';
 
 export default function OrderHistoryList() {
     const dispatch = useDispatch();
     const [refreshing, setRefreshing] = useState(false);
-    const history = useSelector((state) => state.kaoo.history);
-    const table_num = useSelector((state) => state.settings.table_num);
-    const shopId = useSelector((state) => state.kaoo.shopid);
+    const history = useSelector(state => state.kaoo.history);
+    const table_num = useSelector(state => state.settings.table_num);
+    const shopId = useSelector(state => state.kaoo.shopid);
 
     const sections = history?.map((historyItem: KaooHistoryItem) => ({
         ...historyItem,
@@ -33,8 +33,7 @@ export default function OrderHistoryList() {
             const data = await api.getOrderHistory(shopId, table_num);
             // console.log(data);
 
-            if (data.length)
-                dispatch(updateHistory(data));
+            if (data.length) dispatch(updateHistory(data));
             setRefreshing(false);
         } catch (error) {
             console.log(error);
@@ -54,14 +53,18 @@ export default function OrderHistoryList() {
                     {history ? (
                         <SectionList
                             sections={sections ?? []}
-                            keyExtractor={(item) => item.id}
-                            renderItem={
-                                ({ item }) => (
-                                    <OrderHistoryItemList item={item} />
-                                )
-                            }
-                            renderSectionHeader={({ section }) => <OrderHistorySectionHeader historyItem={section} />}
-                            renderSectionFooter={({ section }) => <Divider style={{height: 1}} />}
+                            keyExtractor={item => item.id}
+                            renderItem={({ item }) => (
+                                <OrderHistoryItemList item={item} />
+                            )}
+                            renderSectionHeader={({ section }) => (
+                                <OrderHistorySectionHeader
+                                    historyItem={section}
+                                />
+                            )}
+                            renderSectionFooter={() => (
+                                <Divider style={{ height: 1 }} />
+                            )}
                             refreshControl={
                                 <RefreshControl
                                     refreshing={refreshing}
@@ -77,14 +80,11 @@ export default function OrderHistoryList() {
                                 flexDirection: 'column',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                            }}
-                        >
-                            <Title>
-                                Loading history...
-                            </Title>
+                            }}>
+                            <Title>Loading history...</Title>
                             <ActivityIndicator
                                 size="large"
-                                style={{marginTop: 20}}
+                                style={{ marginTop: 20 }}
                             />
                         </Box>
                     )}
@@ -96,11 +96,8 @@ export default function OrderHistoryList() {
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                    }}
-                >
-                    <Title>
-                        No table number set
-                    </Title>
+                    }}>
+                    <Title>No table number set</Title>
                 </Box>
             )}
         </>

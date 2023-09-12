@@ -1,4 +1,4 @@
-import {KaooCart, OrderedItems} from './kaoo';
+import type { KaooCart, OrderedItems } from './kaoo';
 
 export interface AppOrderHistoryItem {
     orderedItems: OrderedItems;

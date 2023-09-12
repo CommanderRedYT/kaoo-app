@@ -1,6 +1,6 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import { KaooReducer } from "../slices/kaoo";
-import { SettingsReducer } from "../slices/settings";
+import { combineReducers } from '@reduxjs/toolkit';
+import { KaooReducer } from '@src/slices/kaoo';
+import { SettingsReducer } from '@src/slices/settings';
 
 export const rootReducer = combineReducers({
     kaoo: KaooReducer,

@@ -1,7 +1,13 @@
-import {KaooCart, OrderRequest} from "../models/kaoo";
+import type { KaooCart, OrderRequest } from '@src/models/kaoo';
 
-export function generateOrder(cart: KaooCart, adult: number, child: number, table_num: string, shopid: string): OrderRequest {
-    let request: OrderRequest = {
+export function generateOrder(
+    cart: KaooCart,
+    adult: number,
+    child: number,
+    table_num: string,
+    shopid: string,
+): OrderRequest {
+    const request: OrderRequest = {
         child,
         adult,
         person_count: adult + child,

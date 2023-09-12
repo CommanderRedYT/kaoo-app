@@ -1,12 +1,12 @@
-import {SectionList} from 'react-native';
-import {useSelector} from '../../store';
-import {OrderedItem} from '../../models/kaoo';
-import {Title} from 'react-native-paper';
-import {Box} from '@react-native-material/core';
+import { SectionList } from 'react-native';
+import { useSelector } from '@src/store';
+import type { OrderedItem } from '@src/models/kaoo';
+import { Title } from 'react-native-paper';
+import { Box } from '@react-native-material/core';
 import OrderStatusListItem from './OrderStatusListItem';
 
 export default function OrderStatusList() {
-    const orderedItems = useSelector((state) => state.settings.orderedItems);
+    const orderedItems = useSelector(state => state.settings.orderedItems);
 
     const sections = orderedItems.map((orderedItem: OrderedItem) => {
         return {
@@ -20,13 +20,9 @@ export default function OrderStatusList() {
             {orderedItems.length > 0 ? (
                 <SectionList
                     sections={sections ?? []}
-                    renderItem={
-                        ({ item }) => (
-                            <OrderStatusListItem
-                                orderedItem={item}
-                            />
-                        )
-                    }
+                    renderItem={({ item }) => (
+                        <OrderStatusListItem orderedItem={item} />
+                    )}
                 />
             ) : (
                 <Box
@@ -36,11 +32,8 @@ export default function OrderStatusList() {
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                    }}
-                >
-                    <Title>
-                        Nothing ordered yet!
-                    </Title>
+                    }}>
+                    <Title>Nothing ordered yet!</Title>
                 </Box>
             )}
         </>
