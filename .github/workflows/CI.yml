@@ -51,20 +51,19 @@ jobs:
 
       - name: Build Android
         run: |
-          cd android && ./gradlew assembleRelease --no-daemon --info 2>&1 | tee build-log.txt
+          cd android && ./gradlew assembleRelease --no-daemon --info
 
       - name: Rename APK
         run: |
           mkdir downloads
           cd android
           mv app/build/outputs/apk/release/*.apk ../downloads/kaoo-app.apk
-          mv build-log.txt ../downloads/build-log.txt
 
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v2
         with:
           name: kaoo-app
-          path: downloads
+          path: downloads/kaoo-app.apk
 
       # skip release creation if this is not a tag push
       - name: Create Release
