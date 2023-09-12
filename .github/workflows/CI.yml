@@ -2,11 +2,6 @@ name: React Native CI
 on:
   workflow_dispatch:
   push:
-    tags:
-      - '*'
-
-  # also normal push events
-  push:
 
 jobs:
   android-build:
