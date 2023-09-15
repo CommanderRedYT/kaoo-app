@@ -92,3 +92,12 @@ export function saveSettings() {
   const settings = JSON.stringify(state.settings);
   AsyncStorage.setItem('settings', settings);
 }
+
+export function getSettingsJson(prettify = false): string {
+  const state = store.getState();
+  return JSON.stringify(state.settings, null, prettify ? 2 : 0);
+}
+
+export function saveFromJson(settings: string) {
+  AsyncStorage.setItem('settings', settings);
+}

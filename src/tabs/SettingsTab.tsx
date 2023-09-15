@@ -30,7 +30,8 @@ import { FlatList, Linking } from 'react-native';
 import { rsplit } from '@src/utils/generic';
 import licenses from '@root/licenses.json';
 import FastImage from 'react-native-fast-image';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import ExportAppDataDialog from '@src/components/kaoo/ExportAppDataDialog';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
@@ -102,277 +103,309 @@ export default function SettingsTab() {
     });
   }, [modifyName]);
 
+  const [exportDialogVisible, setExportDialogVisible] =
+    useState<boolean>(false);
+
+  const openExportPopup = () => {
+    setExportDialogVisible(true);
+  };
+
   return (
-    <StyledSafeAreaView theme={theme}>
-      <StyledScrollView theme={theme}>
-        <Box mh={10}>
-          <Title>Informations</Title>
-          {IS_PRODUCTION ? null : (
+    <>
+      <StyledSafeAreaView theme={theme}>
+        <StyledScrollView theme={theme}>
+          <Box mh={10}>
+            <Title>Informations</Title>
+            {IS_PRODUCTION ? null : (
+              <Box mb={5}>
+                <TextInput
+                  label="Shop ID"
+                  mode="flat"
+                  value={shopid}
+                  onChangeText={text => dispatch(updateShopId(text))}
+                  keyboardType={'numeric'}
+                />
+              </Box>
+            )}
             <Box mb={5}>
               <TextInput
-                label="Shop ID"
+                label="Child count"
                 mode="flat"
-                value={shopid}
-                onChangeText={text => dispatch(updateShopId(text))}
+                value={child.toString()}
+                onChangeText={text => dispatch(updateChild(parseInt(text)))}
                 keyboardType={'numeric'}
               />
             </Box>
-          )}
-          <Box mb={5}>
-            <TextInput
-              label="Child count"
-              mode="flat"
-              value={child.toString()}
-              onChangeText={text => dispatch(updateChild(parseInt(text)))}
-              keyboardType={'numeric'}
-            />
-          </Box>
-          <Box mb={5}>
-            <TextInput
-              label="Adult count"
-              mode="flat"
-              value={adult.toString()}
-              onChangeText={text => dispatch(updateAdult(parseInt(text)))}
-              keyboardType={'numeric'}
-            />
-          </Box>
-          <Title>Settings</Title>
-          <Divider />
-          <Box
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: '100%',
-              padding: 10,
-              alignItems: 'center',
-            }}
-          >
-            <Text>Use Dark Mode</Text>
-            <Switch
-              value={useDarkMode}
-              onValueChange={() =>
-                dispatchWithSave(updateUseDarkMode(!useDarkMode))
-              }
-            />
-          </Box>
-          {IS_PRODUCTION ? null : (
-            <>
-              <Box
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                  padding: 10,
-                  alignItems: 'center',
-                }}
-              >
-                <Text>
-                  Clear Table Number {table_num ? `(${table_num})` : null}
-                </Text>
-                <Button
-                  onPress={clearTableNumber}
-                  mode="contained"
-                  disabled={!table_num}
-                >
-                  Clear
-                </Button>
-              </Box>
-              <Box
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                  padding: 10,
-                  alignItems: 'center',
-                }}
-              >
-                <Text>
-                  Clear Favorites{' '}
-                  {favorites.length ? `(${favorites.length})` : null}
-                </Text>
-                <Button
-                  onPress={clearFavorites}
-                  mode="contained"
-                  disabled={!favorites.length}
-                  buttonColor={'#f44336'}
-                  textColor={'#fff'}
-                >
-                  Clear
-                </Button>
-              </Box>
-              <Box
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                  padding: 10,
-                  alignItems: 'center',
-                }}
-              >
-                <Text>
-                  Clear Saved Carts{' '}
-                  {savedCarts.length ? `(${savedCarts.length})` : null}
-                </Text>
-                <Button
-                  onPress={clear_saved_carts}
-                  mode="contained"
-                  disabled={!savedCarts.length}
-                  buttonColor={'#f44336'}
-                  textColor={'#fff'}
-                >
-                  Clear
-                </Button>
-              </Box>
-              <Box
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                  padding: 10,
-                  alignItems: 'center',
-                }}
-              >
-                <Text>Clear Order Status</Text>
-                <Button
-                  onPress={clear_order_status}
-                  mode="contained"
-                  buttonColor={'#f44336'}
-                  textColor={'#fff'}
-                  disabled={!orderedItems}
-                >
-                  Clear
-                </Button>
-              </Box>
-            </>
-          )}
-          <Box
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: '100%',
-              padding: 10,
-              alignItems: 'center',
-            }}
-          >
-            <Text>Clear App Order History</Text>
-            <Button
-              onPress={clearAppOrderHistory}
-              mode="contained"
-              buttonColor={'#f44336'}
-              textColor={'#fff'}
-              disabled={!appOrderHistory}
-            >
-              Clear
-            </Button>
-          </Box>
-          <Divider />
-          <Title>Shop Info</Title>
-          <Box>
-            <Text
+            <Box mb={5}>
+              <TextInput
+                label="Adult count"
+                mode="flat"
+                value={adult.toString()}
+                onChangeText={text => dispatch(updateAdult(parseInt(text)))}
+                keyboardType={'numeric'}
+              />
+            </Box>
+            <Title>Settings</Title>
+            <Divider />
+            <Box
               style={{
-                marginLeft: 10,
-                marginRight: 10,
-                textAlign: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                width: '100%',
+                padding: 10,
+                alignItems: 'center',
               }}
             >
-              Shopname: {shopInfo?.shopname}
-            </Text>
-            <Text
-              style={{
-                marginLeft: 10,
-                marginRight: 10,
-                textAlign: 'center',
-              }}
-            >
-              Address: {shopInfo?.address}
-            </Text>
-            <Text
-              style={{
-                marginLeft: 10,
-                marginRight: 10,
-                textAlign: 'center',
-              }}
-            >
-              Phone: {shopInfo?.phone}
-            </Text>
-            <Text
-              style={{
-                marginLeft: 10,
-                marginRight: 10,
-                textAlign: 'center',
-              }}
-            >
-              Email: {shopInfo?.email}
-            </Text>
-            <Text
-              style={{
-                marginLeft: 10,
-                marginRight: 10,
-                textAlign: 'center',
-              }}
-            >
-              Intervaltime: {shopInfo?.intervaltime}
-            </Text>
-            <Text
-              style={{
-                marginLeft: 10,
-                marginRight: 10,
-                textAlign: 'center',
-              }}
-            >
-              Max: {shopInfo?.max}
-            </Text>
-            <FastImage
-              style={{
-                width: 100,
-                height: 100,
-                alignSelf: 'center',
-              }}
-              source={{
-                uri: shopInfo?.shoplogo,
-                priority: FastImage.priority.normal,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </Box>
-          <Divider />
-          <Title>Licenses</Title>
-          <FlatList
-            data={licenseList}
-            renderItem={({ item }) => (
+              <Text>Use Dark Mode</Text>
+              <Switch
+                value={useDarkMode}
+                onValueChange={() =>
+                  dispatchWithSave(updateUseDarkMode(!useDarkMode))
+                }
+              />
+            </Box>
+            {IS_PRODUCTION ? null : (
               <>
-                <Text
+                <Box
                   style={{
-                    marginLeft: 10,
-                    marginRight: 10,
-                    textAlign: 'center',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    width: '100%',
+                    padding: 10,
+                    alignItems: 'center',
                   }}
                 >
-                  {item.name} ({item.version}, {item.license.licenses})
-                </Text>
-                <Button
-                  mode="contained"
-                  onPress={() => {
-                    Linking.openURL(item.license.repository);
+                  <Text>
+                    Clear Table Number {table_num ? `(${table_num})` : null}
+                  </Text>
+                  <Button
+                    onPress={clearTableNumber}
+                    mode="contained"
+                    disabled={!table_num}
+                  >
+                    Clear
+                  </Button>
+                </Box>
+                <Box
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    width: '100%',
+                    padding: 10,
+                    alignItems: 'center',
                   }}
-                  style={{ margin: 10 }}
-                  icon="github"
-                  contentStyle={{
-                    flexDirection: 'row-reverse',
-                  }}
-                  buttonColor={'#333'}
-                  textColor={'#fff'}
                 >
-                  View on GitHub
-                </Button>
+                  <Text>
+                    Clear Favorites{' '}
+                    {favorites.length ? `(${favorites.length})` : null}
+                  </Text>
+                  <Button
+                    onPress={clearFavorites}
+                    mode="contained"
+                    disabled={!favorites.length}
+                    buttonColor={'#f44336'}
+                    textColor={'#fff'}
+                  >
+                    Clear
+                  </Button>
+                </Box>
+                <Box
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    width: '100%',
+                    padding: 10,
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text>
+                    Clear Saved Carts{' '}
+                    {savedCarts.length ? `(${savedCarts.length})` : null}
+                  </Text>
+                  <Button
+                    onPress={clear_saved_carts}
+                    mode="contained"
+                    disabled={!savedCarts.length}
+                    buttonColor={'#f44336'}
+                    textColor={'#fff'}
+                  >
+                    Clear
+                  </Button>
+                </Box>
+                <Box
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    width: '100%',
+                    padding: 10,
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text>Clear Order Status</Text>
+                  <Button
+                    onPress={clear_order_status}
+                    mode="contained"
+                    buttonColor={'#f44336'}
+                    textColor={'#fff'}
+                    disabled={!orderedItems}
+                  >
+                    Clear
+                  </Button>
+                </Box>
+                <Box
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    width: '100%',
+                    padding: 10,
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text>Export App Data</Text>
+                  <Button
+                    onPress={openExportPopup}
+                    mode="contained"
+                    buttonColor={'#333'}
+                    textColor={'#fff'}
+                  >
+                    Export
+                  </Button>
+                </Box>
               </>
             )}
-            keyExtractor={(item, index) => index.toString()}
-            ItemSeparatorComponent={() => <Divider style={{ margin: 10 }} />}
-            scrollEnabled={false}
-          />
-        </Box>
-      </StyledScrollView>
-    </StyledSafeAreaView>
+            <Box
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                width: '100%',
+                padding: 10,
+                alignItems: 'center',
+              }}
+            >
+              <Text>Clear App Order History</Text>
+              <Button
+                onPress={clearAppOrderHistory}
+                mode="contained"
+                buttonColor={'#f44336'}
+                textColor={'#fff'}
+                disabled={!appOrderHistory}
+              >
+                Clear
+              </Button>
+            </Box>
+            <Divider />
+            <Title>Shop Info</Title>
+            <Box>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  marginRight: 10,
+                  textAlign: 'center',
+                }}
+              >
+                Shopname: {shopInfo?.shopname}
+              </Text>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  marginRight: 10,
+                  textAlign: 'center',
+                }}
+              >
+                Address: {shopInfo?.address}
+              </Text>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  marginRight: 10,
+                  textAlign: 'center',
+                }}
+              >
+                Phone: {shopInfo?.phone}
+              </Text>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  marginRight: 10,
+                  textAlign: 'center',
+                }}
+              >
+                Email: {shopInfo?.email}
+              </Text>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  marginRight: 10,
+                  textAlign: 'center',
+                }}
+              >
+                Intervaltime: {shopInfo?.intervaltime}
+              </Text>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  marginRight: 10,
+                  textAlign: 'center',
+                }}
+              >
+                Max: {shopInfo?.max}
+              </Text>
+              <FastImage
+                style={{
+                  width: 100,
+                  height: 100,
+                  alignSelf: 'center',
+                }}
+                source={{
+                  uri: shopInfo?.shoplogo,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </Box>
+            <Divider />
+            <Title>Licenses</Title>
+            <FlatList
+              data={licenseList}
+              renderItem={({ item }) => (
+                <>
+                  <Text
+                    style={{
+                      marginLeft: 10,
+                      marginRight: 10,
+                      textAlign: 'center',
+                    }}
+                  >
+                    {item.name} ({item.version}, {item.license.licenses})
+                  </Text>
+                  <Button
+                    mode="contained"
+                    onPress={() => {
+                      Linking.openURL(item.license.repository);
+                    }}
+                    style={{ margin: 10 }}
+                    icon="github"
+                    contentStyle={{
+                      flexDirection: 'row-reverse',
+                    }}
+                    buttonColor={'#333'}
+                    textColor={'#fff'}
+                  >
+                    View on GitHub
+                  </Button>
+                </>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+              ItemSeparatorComponent={() => <Divider style={{ margin: 10 }} />}
+              scrollEnabled={false}
+            />
+          </Box>
+        </StyledScrollView>
+      </StyledSafeAreaView>
+      <ExportAppDataDialog
+        dialogVisible={exportDialogVisible}
+        setDialogVisible={setExportDialogVisible}
+      />
+    </>
   );
 }

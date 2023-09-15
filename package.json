@@ -13,7 +13,8 @@
     "postuninstall": "yarn run npm-license-crawler -onlyDirectDependencies -json licenses.json",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
-    "build-android": "pushd android && ./gradlew assembleRelease && popd"
+    "build-android": "pushd android && ./gradlew assembleRelease && popd",
+    "patch": "patch-package"
   },
   "dependencies": {
     "@georstat/react-native-image-cache": "^2.3.0",
@@ -25,6 +26,7 @@
     "@reduxjs/toolkit": "^1.9.1",
     "@types/styled-components": "^5.1.26",
     "@types/uuid": "^9.0.0",
+    "base-64": "^1.0.0",
     "deprecated-react-native-prop-types": "^4.2.1",
     "moment": "^2.29.4",
     "npm-license-crawler": "^0.2.1",

@@ -73,10 +73,9 @@ export default function TableSelector() {
         <TableNumberScanner />
       ) : (
         <Button
-          mode="elevated"
+          mode="contained-tonal"
           onPress={() => setUseCamera(true)}
           style={{ margin: 5, borderRadius: 5 }}
-          elevation={5}
         >
           Scan Table Number
         </Button>

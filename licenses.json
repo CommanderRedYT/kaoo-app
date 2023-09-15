@@ -53,6 +53,12 @@
         "licenseUrl": "https://github.com/DefinitelyTyped/DefinitelyTyped/raw/master/LICENSE",
         "parents": "KaooApp"
     },
+    "base-64@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/mathiasbynens/base64",
+        "licenseUrl": "https://github.com/mathiasbynens/base64/raw/master/LICENSE-MIT.txt",
+        "parents": "KaooApp"
+    },
     "deprecated-react-native-prop-types@4.2.1": {
         "licenses": "MIT",
         "repository": "github:facebook/react-native-deprecated-modules",
@@ -143,6 +149,12 @@
         "licenseUrl": "https://github.com/software-mansion/react-native-screens/raw/master/LICENSE",
         "parents": "KaooApp"
     },
+    "react-native-share@9.4.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-native-community/react-native-share",
+        "licenseUrl": "https://github.com/react-native-community/react-native-share/raw/master/LICENSE",
+        "parents": "KaooApp"
+    },
     "react-native-vector-icons@9.2.0": {
         "licenses": "MIT",
         "repository": "https://github.com/oblador/react-native-vector-icons",
@@ -183,12 +195,6 @@
         "licenses": "MIT",
         "repository": "https://github.com/styled-components/styled-components",
         "licenseUrl": "https://github.com/styled-components/styled-components",
-        "parents": "KaooApp"
-    },
-    "ts-jest@29.1.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/kulshekhar/ts-jest",
-        "licenseUrl": "https://github.com/kulshekhar/ts-jest/raw/master/LICENSE.md",
         "parents": "KaooApp"
     },
     "uuid@9.0.0": {
