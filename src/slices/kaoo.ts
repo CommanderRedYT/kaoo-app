@@ -68,6 +68,7 @@ const kaooSlice = createSlice({
     },
     setShopId: (state, action: PayloadAction<KaooState['shopid']>) => {
       state.shopid = action.payload;
+      state.goods = null;
     },
     setFilter: (state, action: PayloadAction<DisplayFilter>) => {
       state.filter = action.payload;

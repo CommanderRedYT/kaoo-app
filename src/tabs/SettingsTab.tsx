@@ -147,7 +147,7 @@ export default function SettingsTab() {
               alignItems: 'center',
             }}
           >
-            <Text>Use dark mode</Text>
+            <Text>Use Dark Mode</Text>
             <Switch
               value={useDarkMode}
               onValueChange={() =>
@@ -155,84 +155,96 @@ export default function SettingsTab() {
               }
             />
           </Box>
-          <Box
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: '100%',
-              padding: 10,
-              alignItems: 'center',
-            }}
-          >
-            <Text>Clear Table Number ({table_num})</Text>
-            <Button
-              onPress={clearTableNumber}
-              mode="contained"
-              disabled={!table_num}
-            >
-              Clear
-            </Button>
-          </Box>
-          <Box
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: '100%',
-              padding: 10,
-              alignItems: 'center',
-            }}
-          >
-            <Text>Clear Favorites ({favorites.length})</Text>
-            <Button
-              onPress={clearFavorites}
-              mode="contained"
-              disabled={!favorites.length}
-              buttonColor={'#f44336'}
-              textColor={'#fff'}
-            >
-              Clear
-            </Button>
-          </Box>
-          <Box
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: '100%',
-              padding: 10,
-              alignItems: 'center',
-            }}
-          >
-            <Text>Clear Saved Carts ({savedCarts.length})</Text>
-            <Button
-              onPress={clear_saved_carts}
-              mode="contained"
-              disabled={!savedCarts.length}
-              buttonColor={'#f44336'}
-              textColor={'#fff'}
-            >
-              Clear
-            </Button>
-          </Box>
-          <Box
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: '100%',
-              padding: 10,
-              alignItems: 'center',
-            }}
-          >
-            <Text>Clear Order Status</Text>
-            <Button
-              onPress={clear_order_status}
-              mode="contained"
-              buttonColor={'#f44336'}
-              textColor={'#fff'}
-              disabled={!orderedItems}
-            >
-              Clear
-            </Button>
-          </Box>
+          {IS_PRODUCTION ? null : (
+            <>
+              <Box
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  padding: 10,
+                  alignItems: 'center',
+                }}
+              >
+                <Text>
+                  Clear Table Number {table_num ? `(${table_num})` : null}
+                </Text>
+                <Button
+                  onPress={clearTableNumber}
+                  mode="contained"
+                  disabled={!table_num}
+                >
+                  Clear
+                </Button>
+              </Box>
+              <Box
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  padding: 10,
+                  alignItems: 'center',
+                }}
+              >
+                <Text>
+                  Clear Favorites{' '}
+                  {favorites.length ? `(${favorites.length})` : null}
+                </Text>
+                <Button
+                  onPress={clearFavorites}
+                  mode="contained"
+                  disabled={!favorites.length}
+                  buttonColor={'#f44336'}
+                  textColor={'#fff'}
+                >
+                  Clear
+                </Button>
+              </Box>
+              <Box
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  padding: 10,
+                  alignItems: 'center',
+                }}
+              >
+                <Text>
+                  Clear Saved Carts{' '}
+                  {savedCarts.length ? `(${savedCarts.length})` : null}
+                </Text>
+                <Button
+                  onPress={clear_saved_carts}
+                  mode="contained"
+                  disabled={!savedCarts.length}
+                  buttonColor={'#f44336'}
+                  textColor={'#fff'}
+                >
+                  Clear
+                </Button>
+              </Box>
+              <Box
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  padding: 10,
+                  alignItems: 'center',
+                }}
+              >
+                <Text>Clear Order Status</Text>
+                <Button
+                  onPress={clear_order_status}
+                  mode="contained"
+                  buttonColor={'#f44336'}
+                  textColor={'#fff'}
+                  disabled={!orderedItems}
+                >
+                  Clear
+                </Button>
+              </Box>
+            </>
+          )}
           <Box
             style={{
               flexDirection: 'row',

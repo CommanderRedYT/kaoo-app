@@ -54,7 +54,7 @@ export default function GoodsList() {
       ) : (
         <SectionList
           sections={sections}
-          keyExtractor={item => `${item.product_id}`}
+          keyExtractor={item => `${item.product_id}-${item.id}-${item.name}`}
           renderItem={({ item }) => <Good good={item} />}
           renderSectionHeader={({ section: { name } }) => (
             <Box

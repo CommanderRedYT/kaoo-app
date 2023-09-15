@@ -1,4 +1,10 @@
-import { Dialog, Checkbox, Portal, Text, useTheme } from 'react-native-paper';
+import {
+  Dialog,
+  Portal,
+  Text,
+  useTheme,
+  RadioButton,
+} from 'react-native-paper';
 import type { DisplayFilterKeys } from '@src/models/kaoo';
 import { DisplayFilter } from '@src/models/kaoo';
 import { Box } from '@react-native-material/core';
@@ -35,7 +41,8 @@ export default function FilterDialog({
               }}
             >
               <Text>{capitalize(DisplayFilter[key as DisplayFilterKeys])}</Text>
-              <Checkbox
+              <RadioButton
+                value={DisplayFilter[key as DisplayFilterKeys]}
                 status={
                   displayFilter === DisplayFilter[key as DisplayFilterKeys]
                     ? 'checked'
@@ -52,10 +59,6 @@ export default function FilterDialog({
               />
             </Box>
           ))}
-          <Text style={{ marginTop: 10 }}>
-            Hi! This filter will lag. It's a known issue. If you can help,
-            please make a pull request!
-          </Text>
         </Dialog.Content>
       </Dialog>
     </Portal>

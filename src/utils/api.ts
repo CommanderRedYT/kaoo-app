@@ -1,12 +1,17 @@
 // react-native
-import type { OrderRequest, OrderResponse } from '@src/models/kaoo';
+import type {
+  OrderRequest,
+  OrderResponse,
+  GoodsResponse,
+  ShopInfo,
+} from '@src/models/kaoo';
 
 export async function request(path: string, options: RequestInit = {}) {
   const response = await fetch(path, options);
   return await response.json();
 }
 
-export async function getGoods(shopId: string) {
+export async function getGoods(shopId: string): Promise<GoodsResponse> {
   // http://order.huaqiaobang.com/index.php?ctrl=shop&action=jmGetGoodsType&id=323
   console.log('Getting goods...');
   return await request(
@@ -54,7 +59,7 @@ export async function makeOrder(
   });
 }
 
-export async function getShopInfo(shopId: string) {
+export async function getShopInfo(shopId: string): Promise<ShopInfo> {
   // http://order.huaqiaobang.com/index.php?ctrl=shop&action=jmGetShopInfo&id=319
   return await request(
     `http://order.huaqiaobang.com/index.php?ctrl=shop&action=jmGetShopInfo&id=${shopId}`,

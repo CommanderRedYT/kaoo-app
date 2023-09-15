@@ -1,6 +1,6 @@
 import GoodsList from '@src/components/kaoo/GoodsList';
 import { Box, Divider } from '@react-native-material/core';
-import { ActivityIndicator, Text, useTheme } from 'react-native-paper';
+import {ActivityIndicator, Text, Title, useTheme} from 'react-native-paper';
 import { useDispatch, useSelector } from '@src/store';
 import { StyledView, StyledSafeAreaView } from '@src/style';
 import ListTabTopBar from '@src/components/kaoo/ListTabTopBar';
@@ -21,11 +21,11 @@ export default function ListTab() {
   useEffect(() => {
     const func = async () => {
       try {
-        const data = await api.getGoods(shopId);
-        dispatch(updateGoods(data));
-
         const shopInfo = await api.getShopInfo(shopId);
         dispatch(updateShopInfo(shopInfo));
+
+        const data = await api.getGoods(shopId);
+        dispatch(updateGoods(data));
       } catch (error) {
         console.log(error);
       }

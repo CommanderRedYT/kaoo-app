@@ -8,11 +8,16 @@ export interface AppOrderHistoryItem {
 
 export type AppOrderHistory = AppOrderHistoryItem[];
 
+export interface SavedCart {
+  cart: KaooCart;
+  uuid: string;
+}
+
 export interface SettingsState {
   useDarkMode: boolean;
   settingsLoaded: boolean;
   favorites: string[];
-  saved_carts: KaooCart[];
+  saved_carts: SavedCart[];
   table_num: string | null;
   orderedItems: OrderedItems;
   appOrderHistory: AppOrderHistory;

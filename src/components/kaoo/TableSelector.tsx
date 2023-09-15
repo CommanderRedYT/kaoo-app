@@ -1,7 +1,7 @@
 import { Button, TextInput, Title } from 'react-native-paper';
 import TableNumberScanner from './TableNumberScanner';
 import { Box } from '@react-native-material/core';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import * as api from '@src/utils/api';
 import { updateGoods, updateShopInfo } from '@src/slices/kaoo';
 import { useDispatch, useSelector } from '@src/store';
@@ -16,18 +16,18 @@ export default function TableSelector() {
   const [useCamera, setUseCamera] = useState<boolean>(false);
   const [change_table, setChangeTable] = useState<string>('');
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     console.log('Getting data');
     try {
-      const data = await api.getGoods(shopId);
-      dispatch(updateGoods(data));
-
       const shopInfo = await api.getShopInfo(shopId);
       dispatch(updateShopInfo(shopInfo));
+
+      const data = await api.getGoods(shopId);
+      dispatch(updateGoods(data));
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [shopId]);
 
   useEffect(() => {
     if (!table_num) return;
@@ -35,7 +35,7 @@ export default function TableSelector() {
     setChangeTable(table_num);
   }, [table_num]);
 
-  const handleSaveTableNum = () => {
+  const handleSaveTableNum = useCallback(() => {
     dispatch(updateOrderedItems([]));
     dispatch(updateTableNum(change_table));
     saveSettings();
@@ -43,7 +43,7 @@ export default function TableSelector() {
     setUseCamera(false);
 
     getData();
-  };
+  }, [change_table, dispatch, getData]);
 
   return (
     <Box style={{ flex: 1, alignSelf: 'stretch', marginTop: 20 }}>

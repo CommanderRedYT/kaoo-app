@@ -35,7 +35,7 @@
     "react-native-elements": "^3.4.3",
     "react-native-fast-image": "^8.6.3",
     "react-native-file-access": "^2.5.2",
-    "react-native-get-random-values": "^1.8.0",
+    "react-native-get-random-values": "^1.9.0",
     "react-native-paper": "^5.1.4",
     "react-native-permissions": "^3.6.1",
     "react-native-qrcode-scanner": "^1.5.5",
@@ -73,8 +73,5 @@
     "prettier": "^3.0.3",
     "react-test-renderer": "18.2.0",
     "typescript": "4.8.4"
-  },
-  "jest": {
-    "preset": "react-native"
   }
 }

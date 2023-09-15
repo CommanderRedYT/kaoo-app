@@ -44,32 +44,34 @@ export default function SavedCartsDialog({
         <ScrollView>
           <Dialog.Content>
             {savedCarts.length ? (
-              savedCarts.map((cart, index) => (
-                <Fragment key={`fragment_${index}`}>
-                  {Object.entries(cart).map(([key, value]) => (
-                    <Box
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: 5,
-                        marginBottom: 5,
-                      }}
-                    >
-                      <Text key={`text_${index}_${key}`}>
-                        {`${value.count}× ${key}. ${value.good.name}`}
-                      </Text>
-                      <FastImage
+              savedCarts.map((cartObj, index) => (
+                <Fragment key={`saved_cart_${cartObj.uuid}`}>
+                  {Object.entries(cartObj.cart).map(([key, value]) => (
+                    <Fragment key={`fragment_${index}_${key}`}>
+                      <Box
                         style={{
-                          width: 24,
-                          height: 24,
-                          borderRadius: 6,
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          gap: 5,
+                          marginBottom: 5,
                         }}
-                        source={{
-                          uri: value.good.img,
-                        }}
-                      />
-                    </Box>
+                      >
+                        <Text key={`text_${index}_${key}`}>
+                          {`${value.count}× ${key}. ${value.good.name}`}
+                        </Text>
+                        <FastImage
+                          style={{
+                            width: 24,
+                            height: 24,
+                            borderRadius: 6,
+                          }}
+                          source={{
+                            uri: value.good.img,
+                          }}
+                        />
+                      </Box>
+                    </Fragment>
                   ))}
                   <Box
                     style={{
@@ -78,12 +80,25 @@ export default function SavedCartsDialog({
                       gap: 2,
                     }}
                   >
-                    <Button mode="contained" onPress={() => applyCart(cart)}>
+                    <Button
+                      style={{
+                        flex: 1,
+                        borderTopRightRadius: 0,
+                        borderBottomRightRadius: 0,
+                      }}
+                      mode="contained"
+                      onPress={() => applyCart(cartObj.cart)}
+                    >
                       Apply
                     </Button>
                     <Button
+                      style={{
+                        flex: 1,
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0,
+                      }}
                       mode="contained"
-                      onPress={() => deleteCart(cart)}
+                      onPress={() => deleteCart(cartObj.cart)}
                       buttonColor={theme.colors.error}
                       textColor={theme.colors.onError}
                     >

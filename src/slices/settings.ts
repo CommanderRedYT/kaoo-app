@@ -1,8 +1,9 @@
+import 'react-native-get-random-values';
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import type { AppThunk } from '@src/store';
-import type { AppOrderHistoryItem, SettingsState } from '@src/models/settings';
+import type {AppOrderHistoryItem, SavedCart, SettingsState} from '@src/models/settings';
 import type { KaooCart, OrderedItem } from '@src/models/kaoo';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -54,14 +55,20 @@ const settingsSlice = createSlice({
     addSavedCart: (state, action: PayloadAction<KaooCart>) => {
       const cart = action.payload;
       if (state.saved_carts) {
-        state.saved_carts.push(cart);
+        state.saved_carts.push({
+          cart,
+          uuid: uuidv4(),
+        });
       }
     },
     addIfnotExistsSavedCart: (state, action: PayloadAction<KaooCart>) => {
       const cart = action.payload;
       if (state.saved_carts) {
-        if (!state.saved_carts.includes(cart)) {
-          state.saved_carts.push(cart);
+        if (!state.saved_carts.map(c => c.cart).includes(cart)) {
+          state.saved_carts.push({
+            cart,
+            uuid: uuidv4(),
+          });
         }
       }
     },
@@ -83,7 +90,7 @@ const settingsSlice = createSlice({
     clearSavedCarts: state => {
       state.saved_carts = [];
     },
-    setSavedCarts: (state, action: PayloadAction<KaooCart[]>) => {
+    setSavedCarts: (state, action: PayloadAction<SavedCart[]>) => {
       state.saved_carts = action.payload;
     },
     setTableNum: (state, action: PayloadAction<SettingsState['table_num']>) => {
@@ -203,7 +210,7 @@ export const clearSavedCarts = (): AppThunk => async dispatch => {
 };
 
 export const updateSavedCarts =
-  (saved_carts: KaooCart[]): AppThunk =>
+  (saved_carts: SavedCart[]): AppThunk =>
   async dispatch => {
     dispatch(settingsSlice.actions.setSavedCarts(saved_carts));
   };
