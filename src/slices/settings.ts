@@ -3,7 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import type { AppThunk } from '@src/store';
-import type {AppOrderHistoryItem, SavedCart, SettingsState} from '@src/models/settings';
+import type {
+  AppOrderHistoryItem,
+  SavedCart,
+  SettingsState,
+} from '@src/models/settings';
 import type { KaooCart, OrderedItem } from '@src/models/kaoo';
 import { v4 as uuidv4 } from 'uuid';
 

@@ -149,12 +149,6 @@
         "licenseUrl": "https://github.com/software-mansion/react-native-screens/raw/master/LICENSE",
         "parents": "KaooApp"
     },
-    "react-native-share@9.4.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/react-native-community/react-native-share",
-        "licenseUrl": "https://github.com/react-native-community/react-native-share/raw/master/LICENSE",
-        "parents": "KaooApp"
-    },
     "react-native-vector-icons@9.2.0": {
         "licenses": "MIT",
         "repository": "https://github.com/oblador/react-native-vector-icons",

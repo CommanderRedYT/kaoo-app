@@ -63,7 +63,6 @@
     "@types/react-native-get-random-values": "^1.8.0",
     "@types/react-test-renderer": "^18.0.0",
     "@welldone-software/why-did-you-render": "^7.0.1",
-    "babel-jest": "^29.2.1",
     "babel-plugin-module-resolver": "^5.0.0",
     "eslint": "^8.49.0",
     "eslint-plugin-no-relative-import-paths": "^1.5.2",

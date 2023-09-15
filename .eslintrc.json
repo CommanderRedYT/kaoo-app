@@ -32,13 +32,6 @@
     "react-native/no-unused-styles": 2,
     "react/jsx-closing-bracket-location": ["warn", "tag-aligned"],
     "react/jsx-closing-tag-location": ["warn", "tag-aligned"],
-    "react/function-component-definition": [
-      "warn",
-      {
-        "namedComponents": "arrow-function",
-        "unnamedComponents": "arrow-function"
-      }
-    ],
     "no-unused-expressions": "off",
     "@typescript-eslint/no-unused-expressions": ["error"],
     "@typescript-eslint/consistent-type-imports": [
