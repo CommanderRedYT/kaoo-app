@@ -1,5 +1,4 @@
-import { Button, Dialog, Portal } from 'react-native-paper';
-import * as RNPaper from 'react-native-paper';
+import { Button, Dialog, Portal, TextInput } from 'react-native-paper';
 import { ScrollView } from 'react-native';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getSettingsJson, saveFromJson } from '@src/utils/settings';
@@ -40,7 +39,7 @@ export default function ExportAppDataDialog({
             <Button onPress={handleSave} style={{ marginBottom: 10 }}>
               Save
             </Button>
-            <RNPaper.TextInput
+            <TextInput
               multiline
               value={configState}
               onChangeText={setConfigState}
