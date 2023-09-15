@@ -1,19 +1,16 @@
 import { Button, Dialog, Portal } from 'react-native-paper';
 import * as RNPaper from 'react-native-paper';
 import { ScrollView } from 'react-native';
-import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getSettingsJson, saveFromJson } from '@src/utils/settings';
 
-interface Props {
-  dialogVisible: boolean;
-  setDialogVisible: (value: boolean) => void;
-}
-
-const ExportAppDataDialog: FC<Props> = ({
+export default function ExportAppDataDialog({
   dialogVisible,
   setDialogVisible,
-}) => {
+}: {
+  dialogVisible: boolean;
+  setDialogVisible: (value: boolean) => void;
+}) {
   const configStr = useMemo(() => getSettingsJson(true), []);
 
   const [configState, setConfigState] = useState<string>(configStr);
@@ -53,6 +50,4 @@ const ExportAppDataDialog: FC<Props> = ({
       </Dialog>
     </Portal>
   );
-};
-
-export default ExportAppDataDialog;
+}
