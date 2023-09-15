@@ -107,7 +107,7 @@
         "licenseUrl": "https://github.com/LinusU/react-native-get-random-values/raw/master/LICENSE",
         "parents": "KaooApp"
     },
-    "react-native-paper@5.1.4": {
+    "react-native-paper@5.10.4": {
         "licenses": "MIT",
         "repository": "https://github.com/callstack/react-native-paper",
         "licenseUrl": "https://github.com/callstack/react-native-paper/raw/master/LICENSE.md",

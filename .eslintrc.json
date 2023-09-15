@@ -30,6 +30,8 @@
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
     "react-native/no-unused-styles": 2,
+    "react/jsx-closing-bracket-location": ["warn", "tag-aligned"],
+    "react/jsx-closing-tag-location": ["warn", "tag-aligned"],
     "no-unused-expressions": "off",
     "@typescript-eslint/no-unused-expressions": ["error"],
     "@typescript-eslint/consistent-type-imports": [
@@ -66,13 +68,15 @@
         "singleQuote": true,
         "trailingComma": "all",
         "printWidth": 80,
-        "tabWidth": 4,
+        "tabWidth": 2,
         "useTabs": false,
         "semi": true,
         "jsxSingleQuote": false,
         "bracketSpacing": true,
         "arrowParens": "avoid",
-        "importOrderSeparation": true
+        "importOrderSeparation": true,
+        "bracketSameLine": false,
+        "endOfLine": "lf"
       }
     ]
   }

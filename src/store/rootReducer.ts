@@ -3,6 +3,6 @@ import { KaooReducer } from '@src/slices/kaoo';
 import { SettingsReducer } from '@src/slices/settings';
 
 export const rootReducer = combineReducers({
-    kaoo: KaooReducer,
-    settings: SettingsReducer,
+  kaoo: KaooReducer,
+  settings: SettingsReducer,
 });

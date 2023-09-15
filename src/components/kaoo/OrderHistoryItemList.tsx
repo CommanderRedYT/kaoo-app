@@ -1,18 +1,21 @@
-import type { KaooHistoryItem, KaooHistoryItemDetailsItem } from '@src/models/kaoo';
+import type {
+  KaooHistoryItem,
+  KaooHistoryItemDetailsItem,
+} from '@src/models/kaoo';
 import OrderHistoryItem from './OrderHistoryItem';
 
 export default function OrderHistoryItemList({
-    item,
+  item,
 }: {
-    item: KaooHistoryItem;
+  item: KaooHistoryItem;
 }) {
-    const { det } = item;
+  const { det } = item;
 
-    return (
-        <>
-            {det.map((itemDetails: KaooHistoryItemDetailsItem, index) => (
-                <OrderHistoryItem itemDetails={itemDetails} key={index} />
-            ))}
-        </>
-    );
+  return (
+    <>
+      {det.map((itemDetails: KaooHistoryItemDetailsItem, index) => (
+        <OrderHistoryItem itemDetails={itemDetails} key={index} />
+      ))}
+    </>
+  );
 }
