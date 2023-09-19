@@ -1,19 +1,20 @@
 export function capitalize(str: string): string {
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
 export const getSearchParamFromURL = (url: string, param: string) => {
-    const include = url.includes(param);
+  const include = url.includes(param);
 
-    if (!include)
-        return null;
+  if (!include) return null;
 
-    const params = url.split(/([&,?,=])/);
-    const index = params.indexOf(param);
-    return params[index + 2];
-}
+  const params = url.split(/([&,?,=])/);
+  const index = params.indexOf(param);
+  return params[index + 2];
+};
 
 export const rsplit = (str: string, sep: string, maxsplit: number) => {
-    const split = str.split(sep);
-    return maxsplit ? [split.slice(0, -maxsplit).join(sep)].concat(split.slice(-maxsplit)) : split;
-}
+  const split = str.split(sep);
+  return maxsplit
+    ? [split.slice(0, -maxsplit).join(sep)].concat(split.slice(-maxsplit))
+    : split;
+};

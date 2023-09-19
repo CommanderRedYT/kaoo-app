@@ -1,24 +1,49 @@
 {
   "env": {
-    "node": true
+    "node": true,
+    "react-native/react-native": true
   },
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "no-relative-import-paths",
+    "react",
+    "react-native",
+    "prettier"
   ],
   "rules": {
-    "no-console": 0,
-    "indent": [
-      "error",
-      4
+    "no-relative-import-paths/no-relative-import-paths": [
+      "warn",
+      { "allowSameFolder": true, "rootDir": "src" }
     ],
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react-native/no-unused-styles": 2,
+    "react/jsx-closing-bracket-location": ["warn", "tag-aligned"],
+    "react/jsx-closing-tag-location": ["warn", "tag-aligned"],
+    "no-unused-expressions": "off",
+    "@typescript-eslint/no-unused-expressions": ["error"],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports"
+      }
+    ],
+    "no-console": 0,
+    "indent": "off",
+    "no-duplicate-imports": "off",
+    "@typescript-eslint/no-duplicate-imports": ["error"],
     "quotes": [
       "error",
       "single"
@@ -26,10 +51,6 @@
     "semi": [
       "error",
       "always"
-    ],
-    "max-len": [
-      "warn",
-      200
     ],
     "comma-dangle": [
       "error",
@@ -39,6 +60,23 @@
         "imports": "only-multiline",
         "exports": "only-multiline",
         "functions": "only-multiline"
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "trailingComma": "all",
+        "printWidth": 80,
+        "tabWidth": 2,
+        "useTabs": false,
+        "semi": true,
+        "jsxSingleQuote": false,
+        "bracketSpacing": true,
+        "arrowParens": "avoid",
+        "importOrderSeparation": true,
+        "bracketSameLine": false,
+        "endOfLine": "lf"
       }
     ]
   }
