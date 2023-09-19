@@ -1,9 +1,11 @@
 {
+  "root": true,
   "env": {
     "node": true,
     "react-native/react-native": true
   },
   "extends": [
+    "@react-native",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier"
