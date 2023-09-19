@@ -73,16 +73,17 @@ jobs:
           cd android && ./gradlew assembleRelease --no-daemon --info
 
       - name: Rename APK
+        id: rename_apk
         run: |
           mkdir downloads
           cd android
-          mv app/build/outputs/apk/release/*.apk ../downloads/kaoo-app.apk
+          mv app/build/outputs/apk/release/*.apk ../downloads/kaoo-app-${{ github.sha }}.apk
 
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v3
         with:
           name: kaoo-app
-          path: downloads/kaoo-app.apk
+          path: downloads/kaoo-app-${{ github.sha }}.apk
           if-no-files-found: error
 
       # skip release creation if this is not a tag push
@@ -93,4 +94,4 @@ jobs:
         with:
           generate_release_notes: true
           prerelease: false
-          files: downloads/kaoo-app.apk
+          files: downloads/kaoo-app-${{ github.sha }}.apk
