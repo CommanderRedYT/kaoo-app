@@ -33,7 +33,7 @@ import FastImage from 'react-native-fast-image';
 import { useCallback, useMemo, useState } from 'react';
 import ExportAppDataDialog from '@src/components/kaoo/ExportAppDataDialog';
 
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+const IS_PRODUCTION = process.env.NODE_ENV === 'production' && false;
 
 export default function SettingsTab() {
   const theme = useTheme();
