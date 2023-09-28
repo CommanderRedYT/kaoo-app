@@ -30,8 +30,9 @@ import { FlatList, Linking } from 'react-native';
 import { rsplit } from '@src/utils/generic';
 import licenses from '@root/licenses.json';
 import FastImage from 'react-native-fast-image';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import ExportAppDataDialog from '@src/components/kaoo/ExportAppDataDialog';
+import { useScrollToTop } from '@react-navigation/native';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production' && false;
 
@@ -53,6 +54,10 @@ export default function SettingsTab() {
   const appOrderHistory = useSelector(
     state => state.settings.appOrderHistory.length > 0,
   );
+
+  const ref = useRef(null);
+
+  useScrollToTop(ref);
 
   const dispatchWithSave = useCallback(
     (action: AppThunk) => {
@@ -113,7 +118,7 @@ export default function SettingsTab() {
   return (
     <>
       <StyledSafeAreaView theme={theme}>
-        <StyledScrollView theme={theme}>
+        <StyledScrollView theme={theme} ref={ref}>
           <Box mh={10}>
             <Title>Informations</Title>
             {IS_PRODUCTION ? null : (

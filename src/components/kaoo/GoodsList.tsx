@@ -4,7 +4,8 @@ import Good from './GoodItem';
 import { useTheme, Text } from 'react-native-paper';
 import { Box } from '@react-native-material/core';
 import { DisplayFilter } from '@src/models/kaoo';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
+import { useScrollToTop } from '@react-navigation/native';
 
 export default function GoodsList() {
   const theme = useTheme();
@@ -12,6 +13,10 @@ export default function GoodsList() {
   const search = useSelector(state => state.kaoo.search);
   const favorites = useSelector(state => state.settings.favorites);
   const filter = useSelector(state => state.kaoo.filter);
+
+  const ref = useRef(null);
+
+  useScrollToTop(ref);
 
   if (!categories) {
     return null;
@@ -53,6 +58,7 @@ export default function GoodsList() {
         </Box>
       ) : (
         <SectionList
+          ref={ref}
           sections={sections}
           keyExtractor={item => `${item.product_id}-${item.id}-${item.name}`}
           renderItem={({ item }) => <Good good={item} />}

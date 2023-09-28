@@ -4,9 +4,15 @@ import type { OrderedItem } from '@src/models/kaoo';
 import { Title } from 'react-native-paper';
 import { Box } from '@react-native-material/core';
 import OrderStatusListItem from './OrderStatusListItem';
+import { useScrollToTop } from '@react-navigation/native';
+import { useRef } from 'react';
 
 export default function OrderStatusList() {
   const orderedItems = useSelector(state => state.settings.orderedItems);
+
+  const ref = useRef(null);
+
+  useScrollToTop(ref);
 
   const sections = orderedItems.map((orderedItem: OrderedItem) => {
     return {
@@ -19,6 +25,7 @@ export default function OrderStatusList() {
     <>
       {orderedItems.length > 0 ? (
         <SectionList
+          ref={ref}
           sections={sections ?? []}
           renderItem={({ item }) => <OrderStatusListItem orderedItem={item} />}
         />

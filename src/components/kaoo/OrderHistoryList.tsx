@@ -1,13 +1,14 @@
 import { RefreshControl, SectionList } from 'react-native';
 import { useDispatch, useSelector } from '@src/store';
 import type { KaooHistoryItem } from '@src/models/kaoo';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ActivityIndicator, Divider, Title } from 'react-native-paper';
 import OrderHistorySectionHeader from './OrderHistorySectionHeader';
 import OrderHistoryItemList from './OrderHistoryItemList';
 import * as api from '@src/utils/api';
 import { updateHistory } from '@src/slices/kaoo';
 import { Box } from '@react-native-material/core';
+import { useScrollToTop } from '@react-navigation/native';
 
 export default function OrderHistoryList() {
   const dispatch = useDispatch();
@@ -15,6 +16,9 @@ export default function OrderHistoryList() {
   const history = useSelector(state => state.kaoo.history);
   const table_num = useSelector(state => state.settings.table_num);
   const shopId = useSelector(state => state.kaoo.shopid);
+  const ref = useRef(null);
+
+  useScrollToTop(ref);
 
   const sections = history?.map((historyItem: KaooHistoryItem) => ({
     ...historyItem,
@@ -52,6 +56,7 @@ export default function OrderHistoryList() {
         <>
           {history ? (
             <SectionList
+              ref={ref}
               sections={sections ?? []}
               keyExtractor={item => item.id}
               renderItem={({ item }) => <OrderHistoryItemList item={item} />}

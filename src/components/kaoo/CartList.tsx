@@ -5,11 +5,17 @@ import { useDispatch, useSelector } from '@src/store';
 import type { CartItem } from '@src/models/kaoo';
 import CartGood from './CartGoodItem';
 import { clearCart } from '@src/slices/kaoo';
+import { useRef } from 'react';
+import { useScrollToTop } from '@react-navigation/native';
 
 export default function CartList() {
   const dispatch = useDispatch();
   const theme = useTheme();
   const cart = useSelector(state => state.kaoo.cart);
+
+  const ref = useRef(null);
+
+  useScrollToTop(ref);
 
   const sections = Object.values(cart).map((cartItem: CartItem) => ({
     ...cartItem,
@@ -46,6 +52,7 @@ export default function CartList() {
         </Button>
       )}
       <SectionList
+        ref={ref}
         sections={sections}
         keyExtractor={item => item.good.product_id}
         renderItem={({ item }) => <CartGood cartItem={item} />}
