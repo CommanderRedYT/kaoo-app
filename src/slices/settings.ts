@@ -111,7 +111,7 @@ const settingsSlice = createSlice({
     },
     addOrderToOrderList: (state, action: PayloadAction<KaooCart>) => {
       const cart = action.payload;
-      Object.keys(cart).forEach(productId => {
+      /*Object.keys(cart).forEach(productId => {
         const orderedItem: OrderedItem = {
           product_id: productId,
           count: cart[productId].count,
@@ -121,6 +121,27 @@ const settingsSlice = createSlice({
         };
 
         state.orderedItems.push(orderedItem);
+      });*/
+
+      // create seperate orderedItems for every count of the same product
+      Object.keys(cart).forEach(productId => {
+        const cartItem = cart[productId];
+        const {
+          good: { cost },
+          count,
+        } = cartItem;
+
+        for (let i = 0; i < count; i++) {
+          const orderedItem: OrderedItem = {
+            product_id: productId,
+            count: 1,
+            received: false,
+            cost: parseFloat(cost),
+            uuid: uuidv4(),
+          };
+
+          state.orderedItems.push(orderedItem);
+        }
       });
     },
     toggleOrderItemReceived: (state, action: PayloadAction<OrderedItem>) => {
