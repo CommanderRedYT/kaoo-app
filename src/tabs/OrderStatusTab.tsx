@@ -14,8 +14,8 @@ import { saveSettings } from '@src/utils/settings';
 export default function OrderStatusTab() {
   const dispatch = useDispatch();
   const theme = useTheme();
-  const orderedItemsCount = useSelector(
-    state => state.settings.orderedItems.length,
+  const orderedItemsCount = useSelector(state =>
+    state.settings.orderedItems.reduce((a, b) => a + b.count, 0),
   );
   const receivedCount = useSelector(state =>
     state.settings.orderedItems

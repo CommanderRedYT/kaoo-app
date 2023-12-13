@@ -76,7 +76,19 @@
         "arrowParens": "avoid",
         "importOrderSeparation": true,
         "bracketSameLine": false,
-        "endOfLine": "lf"
+        "endOfLine": "lf",
+        "importOrder": [
+          "^react$",
+          "^react-native$",
+          "^@/slices",
+          "^@/types",
+          "^@/components",
+          "^@/hooks",
+          "^@/utils",
+          "^@/assets",
+          "^[./]",
+          "^@/"
+        ]
       }
     ]
   }
